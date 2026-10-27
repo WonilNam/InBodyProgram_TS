@@ -1,4 +1,6 @@
 ﻿
+import { alertSetupFailure, getH30Setup } from "../../src/application/services/H30Setup";
+
 Page({
   data: {
     viewType: "searching",
@@ -10,18 +12,27 @@ Page({
     imgSearchSrc: "/images/img_h_30_search_360_270.png",
   },
 
-  connectEquip: function (e) {
-    console.log("searching");
+  connectEquip: async function () {
+    if (this.searching) return;
+    this.searching = true;
     this.setData({
       topText: "搜索中",
       tipText: "即使Dial屏幕未开启也可搜索到设备。",
       viewType: "searching",
     });
-    getApp().globalData.BluetoothH30.connectEquip();
-    //getApp().globalData.BluetoothH30.startInBodyTest();
-    // wx.navigateTo({
-    //     url: '/pages/SetupInBodyEquip/SetupInBodyEquipWifiH30'
-    //   });
+    try {
+      const h30 = getH30Setup();
+      await h30.connect();
+      await h30.loadUsers();
+    } catch (error) {
+      console.error("设备连接失败", error);
+      this.searching = false;
+      await alertSetupFailure();
+      this.ConnectFail();
+      return;
+    }
+    this.searching = false;
+    this.ConnectedEquip();
   },
 
   ConnectFail: function (e) {
@@ -33,29 +44,13 @@ Page({
     });
   },
 
-  ConnectingEquip: function (e) {
-    console.log("connecting!");
-    this.setData({
-      topText: "连接中",
-      tipText: "即使Dial屏幕未开启也可搜索到设备。",
-      viewType: "connecting",
-    });
-  },
-
-  ConnectedEquip: function (e) {
-    console.log("connected!");
+  ConnectedEquip: function () {
     this.setData({
       viewType: "connected",
     });
-    if (e == "measure") {
-      wx.redirectTo({
-        url: "/pages/SetupInBodyEquip/SetupInBodyEquipTestH30",
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/SetupInBodyEquip/SetupInBodyEquipNickNameH30",
-      });
-    }
+    wx.navigateTo({
+      url: "/pages/SetupInBodyEquip/SetupInBodyEquipNickNameH30",
+    });
   },
 
   onLoad: function (options) {
@@ -90,15 +85,6 @@ Page({
     // this.setData({
     //     screenHeight:screenHeight,
     // })
-    getApp().globalData.BluetoothH30.setOnBluetoothConnectingCallback(
-      this.ConnectingEquip
-    );
-    getApp().globalData.BluetoothH30.setOnBluetoothConnectedCallback(
-      this.ConnectedEquip
-    );
-    getApp().globalData.BluetoothH30.setOnBluetoothConnectFailCallback(
-      this.ConnectFail
-    );
   },
 
   /**
@@ -141,9 +127,7 @@ Page({
    * Lifecycle function--Called when page unload
    */
   onUnload: function () {
-    console.log(this.data.viewType);
-    if (this.data.viewType != "connected")
-      getApp().globalData.BluetoothH30.closeBluetoothAdapter();
+    if (this.data.viewType != "connected") void getH30Setup().disconnect();
   },
 
   /**

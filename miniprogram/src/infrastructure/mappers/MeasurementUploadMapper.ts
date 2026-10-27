@@ -69,7 +69,7 @@ export function toH20Payload(result: InBodyMeasurementResult, ctx: UploadContext
   };
 }
 
-/** 对齐旧版 BluetoothH30.setInBodyData 的 H30 / H40 上传字段 */
+/** 对齐旧版设备端测量上传（setInBodyData）的 H30 / H40 字段 */
 export function toH30Payload(
   result: InBodyMeasurementResult,
   ctx: UploadContext,

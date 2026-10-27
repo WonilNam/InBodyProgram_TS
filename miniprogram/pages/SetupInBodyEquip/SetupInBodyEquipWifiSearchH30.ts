@@ -1,5 +1,7 @@
 ﻿
 // pages/SetupInBodyEquip/SetupInBodyEquipWifiSearchH30.js
+import { alertSetupFailure, getH30Setup } from "../../src/application/services/H30Setup";
+
 Page({
 
     /**
@@ -31,7 +33,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        getApp().globalData.BluetoothH30.setOnWifiSearchCallback(this.searchedCallBack);
         var viewType = options.viewType;
         var ssid = options.ssid;
         var wifiUsageVariable = options.wifiUsageVariable;
@@ -46,7 +47,7 @@ Page({
                 viewType: 'searching',
                 btnSelect: '搜索',
             })
-            getApp().globalData.BluetoothH30.wifiScan();
+            this.runScan();
             if (this.data.intervalId) {
                 clearInterval(this.data.intervalId);
             }
@@ -115,13 +116,37 @@ Page({
             processEnum:1
         })
         var switchOn = e.detail.value;
-        if (switchOn)
-            getApp().globalData.BluetoothH30.setWifiUsage(1);
-        else
-            getApp().globalData.BluetoothH30.setWifiUsage(0);
         this.setData({
             switchOn:switchOn
         })
+        this.applyWifiUsage(switchOn);
+    },
+
+    // Writes the Wi-Fi on/off setting; on failure the switch goes back to where it was.
+    async applyWifiUsage(switchOn) {
+        try {
+            await getH30Setup().applySetting({ wifiUsage: switchOn ? 1 : 0 });
+        } catch (error) {
+            console.error('Wi-Fi 开关写入失败', error);
+            this.setData({
+                switchOn: !switchOn
+            })
+            await alertSetupFailure();
+        }
+    },
+
+    // Asks the device to scan, then hands the outcome to searchedCallBack.
+    async runScan() {
+        let found;
+        try {
+            found = await getH30Setup().scanWifi();
+        } catch (error) {
+            console.error('Wi-Fi 搜索失败', error);
+            this.searchedCallBack(false);
+            await alertSetupFailure();
+            return;
+        }
+        this.searchedCallBack(found.length ? found : 'NONE');
     },
 
     search: function (e) {
@@ -129,7 +154,7 @@ Page({
             viewType: 'searching',
             processEnum:0
         })
-        getApp().globalData.BluetoothH30.wifiScan();
+        this.runScan();
         if (this.data.intervalId) {
             clearInterval(this.data.intervalId);
         }
@@ -152,8 +177,6 @@ Page({
     },
     searchedCallBack: function (e) {
         console.log(e);
-        var processCase = this.data.processEnum;
-        if(processCase == 0)
         {
             if (this.data.intervalId) {
                 clearInterval(this.data.intervalId);
@@ -186,16 +209,7 @@ Page({
                 viewType: 'searched',
                 wifiInfo: sortedWifiInfo
             });
-        }else{
-            var switchOn = this.data.switchOn;
-            if (!e) {
-                this.setData({
-                    switchOn: !switchOn
-                })
-            }
         }
-       
-
     },
     select: function (e) {
         var SSID = e.currentTarget.dataset.id;

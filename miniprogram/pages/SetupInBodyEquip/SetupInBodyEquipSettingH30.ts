@@ -1,4 +1,6 @@
 ﻿
+import { alertSetupFailure, getH30Setup, showSetupBusy } from "../../src/application/services/H30Setup";
+
 Page({
   data: {
     AKResponse: {
@@ -29,6 +31,36 @@ Page({
     imgSrc: "/images/setting_img_inbodydialH30.png",
   },
 
+  // Connects (or re-reads the device if already connected), then shows its status.
+  async loadDevice() {
+    showSetupBusy();
+    let status;
+    try {
+      status = await getH30Setup().refresh();
+    } catch (error) {
+      console.error("设备连接失败", error);
+      wx.hideLoading();
+      await alertSetupFailure();
+      this.setInfo(false);
+      return;
+    }
+    wx.hideLoading();
+    this.setInfo(status);
+  },
+
+  // Writes one device setting. A failure drops back to the reconnect state, as before.
+  async applySetting(change: { unit?: number; sound?: number }) {
+    try {
+      await getH30Setup().applySetting(change);
+    } catch (error) {
+      console.error("设置写入失败", error);
+      await alertSetupFailure();
+      this.setInfo(false);
+      return;
+    }
+    this.settingChanged(true);
+  },
+
   moveTutorial: function (e) {
     if (!this.data.isConnected) {
       this.setData({
@@ -36,7 +68,7 @@ Page({
         processCase: 0,
         SettingCase: 0,
       });
-      getApp().globalData.BluetoothH30.connectEquipSetting();
+      this.loadDevice();
     } else {
       wx.navigateTo({
         url: "SetupInBodyEquipTutorialH30",
@@ -47,7 +79,7 @@ Page({
     this.setData({
       SettingCase: 3,
     });
-    getApp().globalData.BluetoothH30.connectEquipSetting();
+    this.loadDevice();
   },
   setInfo(e) {
     console.log(e);
@@ -79,7 +111,7 @@ Page({
       } else {
         var AKResponse = e;
         AKResponse.ssid = AKResponse.ssid.replace(/\0/g, "");
-        var userCount = getApp().globalData.BluetoothH30.userList.length;
+        var userCount = getH30Setup().userList.length;
         console.log(userCount);
         this.setData({
           AKResponse: AKResponse,
@@ -98,7 +130,7 @@ Page({
       SettingCase: 0,
       soundOn: e.detail.value,
     });
-    getApp().globalData.BluetoothH30.setSound(flag);
+    this.applySetting({ sound: flag });
   },
   settingChanged(flag) {
     if (flag) {
@@ -135,10 +167,7 @@ Page({
       success: (res: any) => {
         if (res.confirm) {
           wx.setStorageSync("MyEquipList", "");
-          if (this.data.isConnected) {
-            getApp().globalData.BluetoothH30.closeBLEConnection();
-          }
-          getApp().globalData.BluetoothH30.closeBluetoothAdapter();
+          void getH30Setup().disconnect();
           wx.reLaunch({
             url: "/pages/SetupInBodyEquip/SetupInBodyEquipList",
           });
@@ -151,7 +180,7 @@ Page({
     this.setData({
       SettingCase: 1,
     });
-    getApp().globalData.BluetoothH30.setUnit(3);
+    this.applySetting({ unit: 3 });
   },
   setKg(e) {
     if (this.data.unitKg == true) return;
@@ -159,7 +188,7 @@ Page({
       unitKg: true,
       SettingCase: 2,
     });
-    getApp().globalData.BluetoothH30.setUnit(0);
+    this.applySetting({ unit: 0 });
   },
   onLoad: function (options) {
     if (wx.getStorageSync("ConnectEquip") == "H40")
@@ -172,12 +201,6 @@ Page({
         title: "InBodyDial H30",
         imgSrc: "/images/setting_img_inbodydialH30.png",
       });
-    getApp().globalData.BluetoothH30.setOnSettingBluetoothConnectedCallback(
-      this.setInfo
-    );
-    getApp().globalData.BluetoothH30.setOnSettingChangedCallback(
-      this.settingChanged
-    );
   },
 
   /**
@@ -195,7 +218,7 @@ Page({
       SettingCase: 0,
     });
 
-    getApp().globalData.BluetoothH30.connectEquipSetting();
+    this.loadDevice();
   },
 
   /**

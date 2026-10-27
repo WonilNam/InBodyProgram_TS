@@ -57,20 +57,20 @@ npm test -- --runInBand
 
 ## BLE 边界
 
-蓝牙传输已统一到 `hardware-sdk`：全项目只有 `WxBluetoothAdapter` 直接调用微信原生蓝牙 API，
-也只有它注册原生监听。设备设置、Wi-Fi 配网、昵称、用户列表与 OTA 由
-`src/application/services/H30SetupSession.ts` 承担（沿用原有 `processCase` 状态机，已不含任何 `wx` 调用）：
+所有蓝牙通信都经 `hardware-sdk`：全项目只有 `WxBluetoothAdapter` 直接调用微信原生蓝牙 API，也只有它注册原生监听。
+旧的设备设置状态机（`BleSessionAdapter`）、旧协议适配层（`InBodyH30Protocol`）和设备端测量页已删除。
 
-- 无线电访问经 `H30Transport` 订阅 SDK 的共享适配器；
-- 对话框、跳转、提示音、本地存储、直接上传和固件文件选择经 `ISetupPlatform` 端口（`WxSetupPlatform` 实现）；
-- OTA 使用 SDK 的 `H30OtaService`；
-- `AppContainer.setupSession` 持有实例，`app.ts` 以 `globalData.BluetoothH30` 暴露，页面代码未改。
+H30/H40 设置、Wi-Fi 配网、昵称、用户列表等页面直接 `await` SDK 的调用：
+`checkConnection`、`getUserList`、`call('HO', …)`、`wifiScan`、`wifiSet` / `wifiSetV2`。
+页面间共享的只有当前设备、设备状态、用户列表和 SSID，放在 `src/application/services/H30Setup.ts`
+（不是状态机，页面自己决定下一步）。
 
-启动统一测量前，容器调用 `setupSession.pauseForMeasurement()`：取消订阅、停止扫描、断开旧连接，并让此前发起的
-异步连接作废（`epoch`）。它不会全局移除微信 BLE 监听。
+注意：SDK 的 HO 缓存初始为空，`H30Setup` 每次写 HO 都带上 App 用户的 UID/昵称和设备当前的
+单位、声音、Wi-Fi 设置，避免把设备上的值冲成空。
 
 SDK 每次初始化使用新的广播器和解析器，隔离旧异步任务和解析缓存。
 Runner 销毁后拒绝继续发送命令；取消或断连不会继续重试初始握手。
+OTA（固件升级）功能已确认不再需要，未实现。
 
 ## 仍然存在的迁移边界
 
@@ -80,8 +80,7 @@ Runner 销毁后拒绝继续发送命令；取消或断连不会继续重试初�
 - 旧测量组件与旧型号协议已移除：`InBodyTestComponent`、`InBodyTest120Component`、
   `InBodyTestH30Component`（仅被已注释的 WXML 引用）以及 `InBody120Protocol`、`InBodyH20Protocol`。
   原文件备份在仓库外层的 `.backup/2026-10-27-legacy-ble/`。
-- 设备设置状态机的设备时序行为沿用原实现，只替换了传输层与平台副作用；`InBodyH30Protocol` 仅剩命令/响应编解码（复用 `hardware-sdk` 的 `H30ProtocolParser`）和固件版本检查。
-  这部分需要 H30/H40 真机逐页验证。
+- 设置页改为直接调用 SDK 后，Wi-Fi 配网、改昵称、改单位/声音的设备时序需要 H30/H40 真机逐页验证。
 
 ## 真机验收
 

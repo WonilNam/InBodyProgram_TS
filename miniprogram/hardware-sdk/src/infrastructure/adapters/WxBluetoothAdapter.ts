@@ -1,4 +1,4 @@
-import { IBluetoothSetupAdapter } from '../../domain/ports/IBluetoothAdapter';
+import { IBluetoothAdapter } from '../../domain/ports/IBluetoothAdapter';
 import { InBodyDevice, BleCharacteristic, InBodyDeviceType } from '../../domain/entities/InBodyDevice.entity';
 import { InBodyError } from '../../domain/value-objects/InBodyError';
 import { fromWxBle } from '../errors/WxBleError';
@@ -6,7 +6,7 @@ import { fromWxBle } from '../errors/WxBleError';
 // 声明微信小程序原生全局对象
 declare const wx: any;
 
-export class WxBluetoothAdapter implements IBluetoothSetupAdapter {
+export class WxBluetoothAdapter implements IBluetoothAdapter {
   /**
    * Symbol-keyed Map 确保每次 onDataReceived / onConnectionStateChange 注册的监听器
    * 都有唯一的 key，且可通过返回的 unsubscribe 函数精确删除，防止回调累积泄漏。
@@ -234,20 +234,6 @@ export class WxBluetoothAdapter implements IBluetoothSetupAdapter {
           reject(this._wxErr(err));
         }
       });
-    });
-  }
-
-  /** Fully releases the phone's Bluetooth adapter (and any link on it). Failures mean it was never open. */
-  public async closeAdapter(): Promise<void> {
-    return new Promise<void>(resolve => {
-      wx.closeBluetoothAdapter({ success: () => resolve(), fail: () => resolve() });
-    });
-  }
-
-  /** Requests a read; the value arrives through onDataReceived. Best effort, like the legacy flow. */
-  public async readCharacteristic(deviceId: string, serviceId: string, characteristicId: string): Promise<void> {
-    return new Promise<void>(resolve => {
-      wx.readBLECharacteristicValue({ deviceId, serviceId, characteristicId, success: () => resolve(), fail: () => resolve() });
     });
   }
 

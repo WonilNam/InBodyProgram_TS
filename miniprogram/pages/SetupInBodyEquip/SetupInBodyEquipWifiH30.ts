@@ -1,4 +1,6 @@
 ﻿
+import { getH30Setup } from "../../src/application/services/H30Setup";
+
 Page({
   data: {
     viewType: "",
@@ -20,7 +22,7 @@ Page({
   },
 
   onLoad: function (options) {
-    const ssid = getApp().globalData.BluetoothH30.BTConf.ssid;
+    const ssid = getH30Setup().ssid;
     if (wx.getStorageSync("ConnectEquip") == "H40") {
       this.setData({
         imgSrc: "/images/inBodyDialH40QuarterviewNoBg (non-optimized).png",

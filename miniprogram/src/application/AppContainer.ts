@@ -1,15 +1,12 @@
 import * as hardwareSdk from '../../hardware-sdk/index';
 import { IAudioPlayer } from '../domain/ports/IAudioPlayer';
 import { IHttpClient } from '../domain/ports/IHttpClient';
-import { ISetupPlatform } from '../domain/ports/ISetupPlatform';
 import { IStorageRepository } from '../domain/ports/IStorageRepository';
 import { WxAudioPlayer } from '../infrastructure/adapters/WxAudioPlayer';
 import { WxHttpClient } from '../infrastructure/adapters/WxHttpClient';
-import { WxSetupPlatform } from '../infrastructure/adapters/WxSetupPlatform';
 import { WxStorageRepository } from '../infrastructure/adapters/WxStorageRepository';
 import { AuthAppService } from './services/AuthAppService';
 import { EquipmentSetupService } from './services/EquipmentSetupService';
-import { H30SetupSession } from './services/H30SetupSession';
 import { MeasurementWorkflowService } from './services/MeasurementWorkflowService';
 import { ReportAppService } from './services/ReportAppService';
 import { AuthStore } from './stores/AuthStore';
@@ -21,8 +18,6 @@ export interface AppDependencies {
   readonly storage?: IStorageRepository;
   readonly audio?: IAudioPlayer;
   readonly sdk?: typeof hardwareSdk;
-  readonly setupPlatform?: ISetupPlatform;
-  readonly setupSession?: H30SetupSession;
 }
 
 export class AppContainer {
@@ -40,8 +35,6 @@ export class AppContainer {
   readonly authService: AuthAppService;
   readonly measurementWorkflow: MeasurementWorkflowService;
   readonly equipmentSetup: EquipmentSetupService;
-  /** The H30/H40 device-setup flow (Wi-Fi, nickname, user list, OTA) the setup pages drive. */
-  readonly setupSession: H30SetupSession;
 
   initializeSession(): ReturnType<AuthAppService['bootstrapSession']> {
     if (!this.initialization) {
@@ -58,8 +51,6 @@ export class AppContainer {
     this.storage = deps.storage ?? new WxStorageRepository();
     this.audio = deps.audio ?? new WxAudioPlayer();
     this.sdk = deps.sdk ?? hardwareSdk;
-
-    this.setupSession = deps.setupSession ?? new H30SetupSession(deps.setupPlatform ?? new WxSetupPlatform());
 
     this.authStore = new AuthStore();
     this.reportStore = new ReportStore();
@@ -86,7 +77,7 @@ export class AppContainer {
       this.http,
       this.audio,
       this.sdk,
-      () => this.setupSession.pauseForMeasurement(),
+      undefined,
       this.storage
     );
 

@@ -5,7 +5,6 @@ Page({
   },
 
   addNickName: function (e) {
-    // getApp().globalData.BluetoothH30.deleteUser();
     wx.redirectTo({
       url: "SetupInBodyEquipNickNameSetH30",
     });

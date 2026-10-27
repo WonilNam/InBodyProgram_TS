@@ -173,22 +173,6 @@ export class H30Setup {
     await this.sdk.disconnect();
   }
 
-  /** Firmware transfer helper bound to the connected device. */
-  firmware() {
-    const ota = this.sdk.createOtaService();
-    const deviceId = (): string => {
-      if (!this.device) throw new Error('尚未连接设备');
-      return this.device.deviceId;
-    };
-    return {
-      /** Puts the device in update mode (`SV`); reconnect afterwards so the OTA service appears. */
-      enterUpdateMode: () => this.sdk.call('SV'),
-      begin: () => ota.start(deviceId()),
-      send: (image: Parameters<typeof ota.sendFirmware>[1]) => ota.sendFirmware(deviceId(), image),
-      end: () => ota.end(deviceId()),
-    };
-  }
-
   /** Full HO payload: the app user, the device's current settings, then the requested changes. */
   private settingsFor(overrides: Record<string, unknown>): Record<string, unknown> {
     const globals = this.host.globals();
@@ -222,4 +206,16 @@ export function getH30Setup(): H30Setup {
     });
   }
   return shared;
+}
+
+/** The dialog every setup screen shows when the device cannot be reached or does not answer. */
+export function alertSetupFailure(content = '连接失败！'): Promise<void> {
+  return new Promise(resolve => {
+    wx.showModal({ title: '提示', content, showCancel: false, complete: () => resolve() });
+  });
+}
+
+/** Shows the busy indicator the setup screens use while waiting for the device. */
+export function showSetupBusy(): void {
+  wx.showLoading({ title: '加载中...', mask: true });
 }

@@ -16,14 +16,8 @@ export enum InBodyErrorCode {
     UNSUPPORTED = -13,          // 当前型号不支持此操作
 }
 
-/** The raw failure reported by the platform BLE API, kept so callers can pick a user-facing message. */
-export interface PlatformBleError {
-    errCode?: number;
-    errMsg?: string;
-}
-
 export class InBodyError extends Error {
-    constructor(public code: InBodyErrorCode, message: string, public platform?: PlatformBleError) {
+    constructor(public code: InBodyErrorCode, message: string) {
         super(message);
         this.name = 'InBodyError';
         Object.setPrototypeOf(this, InBodyError.prototype);

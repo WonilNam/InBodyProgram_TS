@@ -75,14 +75,3 @@ export interface IBluetoothAdapter {
    */
   onAdapterStateChange(callback: (available: boolean, discovering: boolean) => void): () => void;
 }
-
-/**
- * Extra operations the device-setup flows (Wi-Fi provisioning, nickname, OTA) need on top of
- * measurement. Kept separate so measurement-only fakes do not have to implement them.
- */
-export interface IBluetoothSetupAdapter extends IBluetoothAdapter {
-  /** Closes the phone's Bluetooth adapter; resolves even if it was never open. */
-  closeAdapter(): Promise<void>;
-  /** Asks the device to report a characteristic; the value is delivered via onDataReceived. */
-  readCharacteristic(deviceId: string, serviceId: string, characteristicId: string): Promise<void>;
-}

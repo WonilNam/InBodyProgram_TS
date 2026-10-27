@@ -37,7 +37,7 @@ Page({
     },
 
     onConfirm(e) {
-        //getApp().globalData.BluetoothH30.userListInitialize();
+        // Deliberately does nothing: resetting the device user list (sdk.initUserList) is not triggered from here.
     },
     /**
      * 生命周期函数--监听页面加载
@@ -48,7 +48,6 @@ Page({
         this.setData({
             serialNumber:serialNumber
         })       
-        getApp().globalData.BluetoothH30.setOnUserInitializedCallback(this.initialized);
     },
 
     /**

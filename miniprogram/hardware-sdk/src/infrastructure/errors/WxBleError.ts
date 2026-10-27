@@ -39,5 +39,5 @@ export function fromWxBle(err: any): InBodyError {
     }
 
     // 如果没匹配到业务码，统一挂载物理码在 message 中以供诊断
-    return new InBodyError(code, `[微信物理层错误 ${errCode || '??'}] ${rawMsg}`, { errCode, errMsg: err?.errMsg });
+    return new InBodyError(code, `[微信物理层错误 ${errCode || '??'}] ${rawMsg}`);
 }

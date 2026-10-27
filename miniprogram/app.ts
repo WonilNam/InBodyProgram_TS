@@ -57,7 +57,6 @@ App({
     InBodyData: '',
     historyDefaultSet: '',
     bluetoothdata: false,
-    BluetoothH30: getContainer().setupSession,
     nickName: '',
   },
 });

@@ -22,20 +22,5 @@
  <view class="foot" >
 
     <button class="btnSet" bindtap="confirmNickName" >确认</button>
-    <!-- <button class="btnSet" bindtap="dr" >DR</button>
-    <button class="btnSet" bindtap="ut0" >UT0</button>
-    <button class="btnSet" bindtap="ut1" >UT1</button>s
-    <button class="btnSet" bindtap="dc" >DC</button>
-    <button class="btnSet" bindtap="sv" >SV</button>
-    <button class="btnSet" bindtap="cota" >COTA</button>
-    <button class="btnSet" bindtap="stx" >STX</button>
-    <button class="btnSet" bindtap="wota" >WOTA</button>
-    <button class="btnSet" bindtap="etx" >ETX</button>
-    <button class="btnSet" bindtap="end" >END</button>
-    <button class="btnSet" bindtap="dfu" >DFU</button>
-    <button class="btnSet" bindtap="ws" >WS</button>
-    <button class="btnSet" bindtap="wi" >WI</button>
-    <button class="btnSet" bindtap="wifiSearch" >WIS</button>
-    <button class="btnSet" bindtap="gfv" >GFV</button> -->
   </view>
 </view>

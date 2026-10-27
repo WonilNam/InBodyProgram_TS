@@ -1,5 +1,7 @@
 ﻿
 // pages/SetupInBodyEquip/SetupInBodyEquipWifiSearchH30.js
+import { alertSetupFailure, getH30Setup, showSetupBusy, WIFI_JOINED_CODE } from "../../src/application/services/H30Setup";
+
 Page({
 
     /**
@@ -31,13 +33,27 @@ Page({
         });
     },
 
-    onConfirm(e) {
+    async onConfirm(e) {
+        if (this.data.isEnterPressed) return;
         this.data.isEnterPressed = true;
-        getApp().globalData.BluetoothH30.wifiSet(this.data.SSID, this.data.passwordValue);
+        showSetupBusy();
+        let code;
+        try {
+            code = await getH30Setup().connectWifi(this.data.SSID, this.data.passwordValue);
+        } catch (error) {
+            console.error('Wi-Fi 配置失败', error);
+            wx.hideLoading();
+            this.data.isEnterPressed = false;
+            await alertSetupFailure();
+            return;
+        }
+        wx.hideLoading();
+        this.data.isEnterPressed = false;
+        this.connectRes(code);
     },
     connectRes(res) {
-        if (res == 48) {
-            getApp().globalData.BluetoothH30.setSSID(this.data.SSID);
+        if (res == WIFI_JOINED_CODE) {
+            getH30Setup().ssid = this.data.SSID;
             if (this.data.viewType == 'register') {
                 wx.redirectTo({
                     url: '/pages/SetupInBodyEquip/SetupInBodyEquipConnectedH30',
@@ -77,8 +93,7 @@ Page({
         })
 
         // 根据管理者判定结果设置最大密码长度
-        const BT = getApp().globalData.BluetoothH30;
-        let maxLen = BT.isWASupported() ? 63 : 20;
+        let maxLen = getH30Setup().supportsLongWifiPassword() ? 63 : 20;
 
         this.setData({
             maxPasswordLength: maxLen
@@ -98,7 +113,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-        getApp().globalData.BluetoothH30.setOnWifiConnectCompletedCallback(this.connectRes);
+
     },
 
     /**

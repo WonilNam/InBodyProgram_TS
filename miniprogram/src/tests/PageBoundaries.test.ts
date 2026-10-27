@@ -5,7 +5,11 @@ import ts from 'typescript';
 const pages = ['HealthReportMain/HealthReportDashboard','HealthReportMain/HealthReportMain',
   'HealthReportBarGraph/HealthReportBarGraphComponent','HealthReportHistoryGraph/HealthReportHistoryGraphComponent',
   'Login/InputTelHPComponent', 'ViewMoreMain/ViewMoreMain', 'InBodyTestMain/InBodyTestProfile',
-  'SetupInBodyDataManage/InBodyDataManage', 'HealthReportBarGraph/inbodyDataSelect'];
+  'SetupInBodyDataManage/InBodyDataManage', 'HealthReportBarGraph/inbodyDataSelect',
+  'SetupInBodyEquip/SetupInBodyEquipConnectH30', 'SetupInBodyEquip/SetupInBodyEquipNickNameH30',
+  'SetupInBodyEquip/SetupInBodyEquipNickNameSetH30', 'SetupInBodyEquip/SetupInBodyEquipSettingH30',
+  'SetupInBodyEquip/SetupInBodyEquipWifiH30', 'SetupInBodyEquip/SetupInBodyEquipWifiSearchH30',
+  'SetupInBodyEquip/SetupInBodyEquipWifiPasswordH30', 'SetupInBodyEquip/SetupInBodyEquipInitializeH30'];
 
 describe('Refactored native page boundaries', () => {
   it.each(pages)('%s implements every active WXML event without legacy requests or unchecked code', page => {

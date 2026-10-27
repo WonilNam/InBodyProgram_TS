@@ -9,8 +9,6 @@ import { DeviceServiceFactory } from './src/application/DeviceServiceFactory';
 import { BluetoothService } from './src/application/services/BluetoothService';
 import { InBodyError, InBodyErrorCode } from './src/domain/value-objects/InBodyError';
 import { IBluetoothService } from './src/domain/ports/IBluetoothService';
-import { IBluetoothSetupAdapter } from './src/domain/ports/IBluetoothAdapter';
-import { H30OtaService } from './src/application/services/H30OtaService';
 import { IBaseDeviceEvents, IDeviceService, IPostureFeature, IProgressFeature, IWeightFeature, IWifiDeviceService } from './src/domain/ports/IDeviceService';
 import { DataConfirmRequest, DataDeleteRequest, DeviceRequest, StartMeasurementRequest } from './src/domain/entities/DeviceRequest.entity';
 import { InBodyResult } from './src/domain/entities/DeviceResponse.entity';
@@ -267,17 +265,3 @@ export const manipulateData = async (uid: string, nickName: string, saveResult: 
 };
 
 export { InBodyErrorCode, InBodyError };
-
-// --- 5. 设备设置 / OTA 流程使用的底层能力 ---
-
-/**
- * The single shared Bluetooth adapter. Setup flows (Wi-Fi, nickname, OTA) must use this instead of
- * registering their own wx listeners: the adapter owns the one set of native listeners, and a
- * flow that is not active simply unsubscribes.
- */
-export const getSetupBluetoothAdapter = (): IBluetoothSetupAdapter => bluetoothRepo;
-
-export const createOtaService = () => new H30OtaService(bluetoothRepo);
-
-export { H30_OTA } from './src/application/services/H30OtaService';
-export type { FirmwareImage, FirmwareSendOptions } from './src/application/services/H30OtaService';

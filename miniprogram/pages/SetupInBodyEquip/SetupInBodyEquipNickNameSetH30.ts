@@ -1,5 +1,7 @@
 
 
+import { alertSetupFailure, getH30Setup, showSetupBusy } from "../../src/application/services/H30Setup";
+
 Page({
   data: {
     viewType: "normal",
@@ -8,55 +10,29 @@ Page({
     imgSrc: "/images/inBodyDialH30Lcd.png",
   },
 
-  confirmNickName: function (e) {
-    console.log("Set NickName");
-    let nickName = this.data.nickName;
-    if (nickName == "") return;
-    getApp().globalData.BluetoothH30.setOnSetNickNameCallback(this.wifiSearch);
+  confirmNickName: async function () {
+    const nickName = this.data.nickName;
+    if (nickName == "" || this.registering) return;
+    this.registering = true;
     getApp().globalData.nickName = nickName;
+    showSetupBusy();
+    let status;
+    try {
+      status = await getH30Setup().register(nickName);
+    } catch (error) {
+      console.error("昵称注册失败", error);
+      wx.hideLoading();
+      this.registering = false;
+      await alertSetupFailure();
+      return;
+    }
+    wx.hideLoading();
+    this.registering = false;
+    wx.setStorageSync("MyEquipList", wx.getStorageSync("ConnectEquip") == "H40" ? "H40" : "H30");
+    wx.setStorageSync("nickName", nickName);
+    this.wifiSearch(status.wifiUsageVariable);
+  },
 
-    console.log(nickName);
-    getApp().globalData.BluetoothH30.setNickName(nickName);
-  },
-  dr: function (e) {
-    getApp().globalData.BluetoothH30.getMeasrementData();
-  },
-  ut0: function (e) {
-    getApp().globalData.BluetoothH30.userDataTransfer(0);
-  },
-  ut1: function (e) {
-    getApp().globalData.BluetoothH30.userDataTransfer(1);
-  },
-  dc: function (e) {
-    getApp().globalData.BluetoothH30.confirmTransfer();
-  },
-  sv: function (e) {
-    getApp().globalData.BluetoothH30.updateFirmware();
-  },
-  cota: function (e) {
-    getApp().globalData.BluetoothH30.connectOTA();
-  },
-  stx: function (e) {
-    getApp().globalData.BluetoothH30.startOTAWrite();
-  },
-  wota: function (e) {
-    getApp().globalData.BluetoothH30.writeOTAFile();
-  },
-  etx: function (e) {
-    getApp().globalData.BluetoothH30.endOTAWrite();
-  },
-  end: function (e) {
-    getApp().globalData.BluetoothH30.closeBLEConnection();
-  },
-  dfu: function (e) {
-    getApp().globalData.BluetoothH30.updateFirmwareFile();
-  },
-  ws: function (e) {
-    getApp().globalData.BluetoothH30.wifiScan();
-  },
-  wi: function (e) {
-    getApp().globalData.BluetoothH30.wifiSet();
-  },
   wifiSearch: function (e) {
     let bWifiUsed = e == 1 ? true : false;
     if (bWifiUsed) {
@@ -68,9 +44,6 @@ Page({
         url: "/pages/SetupInBodyEquip/SetupInBodyEquipConnectedH30",
       });
     }
-  },
-  gfv: function (e) {
-    getApp().globalData.BluetoothH30.getFirmwareVersion();
   },
   inputChange: function (e) {
     const inputValue = e.detail.value;
@@ -90,7 +63,7 @@ Page({
 
   onLoad: function (options) {
     const nickName = wx.getStorageSync("nickName");
-    const foundObject = getApp().globalData.BluetoothH30.userList.find(
+    const foundObject = getH30Setup().userList.find(
       (obj: any) => obj.nickName.replace(/\u0000/g, "") === nickName
     );
     const exists = foundObject !== undefined;
@@ -117,7 +90,7 @@ Page({
   onShow: function () {
     const nickName = wx.getStorageSync("nickName");
 
-    const foundObject = getApp().globalData.BluetoothH30.userList.find(
+    const foundObject = getH30Setup().userList.find(
       (obj: any) => obj.nickName.replace(/\u0000/g, "") == nickName
     );
     const exists = foundObject !== undefined;
