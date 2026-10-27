@@ -1,0 +1,6 @@
+<input-telhp bindmyevent="onInputTelHP" wx:if="{{IsShowInput}}" />
+<get-telhp bindgetevent="onGetTelHP" bindswitchviewevent="onSwitchView" wx:if="{{IsShowGet}}" />
+<get-private  bindagreedpolicyevent="OnAgreedPolicy" binddisagreedpolicyevent="onSwitchView" wx:if="{{IsShowAgree}}" />
+<view style="background-color:#f4f4f4;height:100vh;display:flex;align-items: center;" wx:if="{{!IsShowInput && !IsShowGet && !IsShowAgree}}">
+  <image src="/images/inbody.png" mode="widthFix" style="margin: 100px;width:750rpx;"/>
+</view>

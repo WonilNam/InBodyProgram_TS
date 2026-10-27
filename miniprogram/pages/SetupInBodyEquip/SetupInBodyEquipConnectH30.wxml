@@ -1,0 +1,25 @@
+<view class="wrap">
+  <view class="header">
+    <view class="title">{{equip}}</view>
+ <view class="text">{{topText}}</view>
+  </view>
+ 
+  <view class="itemArea">
+      <view class="imageArea" wx:if="{{viewType != 'searching'}}">
+        <image wx:if="{{equip == 'InBodyDial H30' }}" src="/images/setting_img_inbodydialH30.png"></image>
+        <image wx:if="{{equip == 'InBodyDial H40' }}" src="/images/inBodyDialH40QuarterviewNoBg (non-optimized).png"></image>
+    </view>
+      <view class="searchingArea" wx:if="{{viewType == 'searching'}}">
+        <image src="{{imgSearchSrc}}"></image>
+      </view>
+    <view class="textArea">
+      <view class="top" wx:if="{{viewType == 'searching' || viewType == 'connecting'}}">请稍等。</view>
+      <view class="bottom"  style="{{viewType != 'original'?'margin-top:1vh':'margin-top:9vh'}}" wx:if="{{viewType != 'connected'}}">{{tipText}}</view>
+      <view class="tip"  wx:if="{{viewType == 'searching'}}">为确保设备连接的稳定性，请将您的只能手机与产品保持再1米的范围内。</view>
+    </view>
+  </view>
+ <view class="foot">
+    <button class="btnSet" bindtap="connectEquip" wx:if="{{viewType == 'original' || viewType == 'connected'}}">{{btnText}}</button>
+    <image class="imgConnect" src="/images/kloader.gif" wx:if="{{viewType == 'searching' || viewType == 'connecting'}}" ></image>
+  </view>
+</view>

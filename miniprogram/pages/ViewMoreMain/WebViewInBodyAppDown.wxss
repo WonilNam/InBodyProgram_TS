@@ -1,0 +1,11 @@
+/* pages/ViewMoreMain/WebViewInBodyAppDown.wxss */
+.android-download {
+  padding: 48rpx 40rpx;
+  background: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.download-title { font-size: 36rpx; font-weight: 600; color: #222; }
+.download-tip { margin-top: 32rpx; color: #59636d; font-size: 28rpx; line-height: 1.6; }
+.download-button { margin-top: 48rpx; background: #35aa89; color: #fff; }
+.download-url { display: block; margin-top: 28rpx; color: #76818b; font-size: 22rpx; word-break: break-all; }

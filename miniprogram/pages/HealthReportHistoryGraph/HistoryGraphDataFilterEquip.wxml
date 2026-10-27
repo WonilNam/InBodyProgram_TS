@@ -1,0 +1,33 @@
+<wxs src="./Resources.wxs" module="res"></wxs>
+
+<view class="equipContainer">
+  <view class="dataList">
+    <view class="listBarArea">
+      <view class="left">
+        <text class="txt">设备列表</text>
+      </view>
+      <view class="right">
+        <button class="btn clear" bindtap="checkboxAllUncheck">全部取消</button>
+        <button class="btn all" bindtap="checkboxAllCheck">全选</button>
+      </view>
+    </view>
+    <checkbox-group class="list" bindchange="setEquipChange">
+        <label class="listItem" style="display:block;" wx:for="{{listData}}" wx:key="Equip">
+          <checkbox value="{{item.Equip}}" checked="{{item.IsChecked}}"/>
+          <text>{{(res.getString('Txt_InBody', L)) + (item.EquipText)}}</text>
+        </label>
+    </checkbox-group>
+  </view>
+  <view class="equip-spacer"></view>
+  <view class="filterActionBar">
+    <button class="completeButton" bindtap="confirmEquip">确定</button>
+  </view>
+</view>
+
+
+<template name="msgItem">
+  <view>
+    <text> {{index}}: {{msg}} </text>
+    <text> Time: {{time}} </text>
+  </view>
+</template>

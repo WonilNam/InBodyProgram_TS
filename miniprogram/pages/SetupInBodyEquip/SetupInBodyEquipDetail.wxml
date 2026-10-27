@@ -1,0 +1,16 @@
+<view class="wrap">
+  <view class="header">
+    <view class="button" style="visibility:hidden;float:left">건너뛰기</view>
+    <view class="title">InBody Dial</view>
+    <button class="button" plain="true" bindtap="skipSet">건너뛰기</button>
+  </view>
+  
+  <view class="help" style="color:{{HelpColor}}">
+    {{HelpText}}
+  </view>
+  <view class="body">
+    <button class="btnSet" hidden="{{IsHideButton}}" bindtap="setEquip">{{BtnText}}</button>
+    <image class="equipImg" src="/images/setting_img_big_inbodydial_bluetooth.png"></image>
+  </view>
+  
+</view>

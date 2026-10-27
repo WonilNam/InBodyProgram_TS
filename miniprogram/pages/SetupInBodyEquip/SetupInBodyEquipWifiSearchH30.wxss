@@ -1,0 +1,31 @@
+.wrap{width:100%;height: 100vh;box-sizing: border-box;padding-top: 5vh;display: flex;flex-direction: column;align-items: center;background-color: rgb(247, 248, 250);border-top: solid 1rpx rgb(223, 223, 223);overflow: hidden;}
+
+.header{width:90%;height:8vh;border-radius: 15rpx;border: solid 1rpx rgb(223, 223, 223);align-items: center;background-color: white;display: flex;flex-direction: column;box-sizing: border-box;overflow: hidden;}
+.header .s{flex: 1;width: 100%;display: flex;align-items: center;background-color: white;}
+.header .title{width:500rpx;height:8vh;line-height: 8vh;margin-left: 50rpx;font-size: 4vw;}
+.header .wifiSwitch{margin-right: 40rpx;zoom: .8;}
+
+.header .wfInfo{flex: 1;background-color: white;width: 100%;display: flex;box-sizing: border-box;}
+.header .wfInfo .ssid{width:90%;height:8vh;line-height: 8vh;margin-left: 50rpx;font-size: 4vw;border-top: solid 1rpx rgb(224, 224, 224);  white-space: nowrap; /* 防止文本换行 */  
+    overflow: hidden; /* 隐藏超出容器的文本 */  
+    text-overflow: ellipsis; /* 用省略号表示被截断的文本 */  }
+
+.itemArea {width:100%;height:70vh;display: flex;align-items: center;flex-direction: column;box-sizing: border-box;overflow: auto;}
+.itemArea .textArea {width:90%;height:5vh;margin-top: 2vh;}
+.itemArea .textSearching {width:90%;height:11vh;color: rgb(121, 134, 143);margin-top: 2vh;}
+.itemArea .txt{font-size: 3.5vw;height:5.5vw;line-height: 5.5vw;}
+.itemArea progress{width: 90%;height:20rpx;border-radius: 15rpx;overflow: hidden;border:solid 1rpx rgb(223, 223, 223);}
+
+.itemArea .item{width:90%;height:8vh;border-radius: 15rpx;border: solid 1rpx rgb(223, 223, 223);display: flex;align-items: center;margin-top: 1vh;background-color: white;}
+.itemArea .item .title{width:550rpx;height:92rpx;line-height: 92rpx;margin-left: 50rpx;font-size: 4vw;overflow: hidden;}
+.itemArea .item .img{width:25%;height:8vh;display: flex;align-items: center;}
+.itemArea .item .img image{width:35%;height:50%;padding: 5rpx;}
+
+.foot{width: 100%;height:13vh;margin-top: 2vh;}
+.btnSet{width:40%;background-color:white;color:rgb(54, 62, 81);font-size:5vw;border-radius: 25rpx;border: solid 1rpx rgb(223, 223, 223);}
+.btnSet::after{border: none;}
+
+progress {
+    transition: width 0.2s ease;
+  }
+

@@ -1,0 +1,81 @@
+<view class="history-filter-page">
+  <view class="filter-summary" bindtap="setDateChange">
+    <text class="section-label">期间筛选</text>
+    <view class="summary-value">
+      <text>{{dateRangeText || '全部'}}</text>
+      <text class="edit-icon">✎</text>
+    </view>
+  </view>
+
+  <view class="equipment-section">
+    <text class="section-label">测量设备</text>
+    <view class="equipment-tabs">
+      <view class="equipment-tab-list">
+        <view wx:for="{{equipTabs}}" wx:key="value"
+          class="equipment-tab {{item.selected ? 'active' : ''}}"
+          data-equip="{{item.value}}" bindtap="setEquipTab">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="filter-divider"></view>
+
+  <view class="dataList">
+    <view class="list-heading">
+      <text class="total-count">{{visibleListData.length}} 个数据</text>
+      <view class="select-all" bindtap="toggleAll">
+        <view class="filter-checkbox {{isVisibleAllChecked ? 'checked' : ''}}"><view wx:if="{{isVisibleAllChecked}}" class="checkmark"></view></view>
+        <text>全选</text>
+      </view>
+    </view>
+    <view class="list">
+        <view class="listItem" wx:for="{{visibleListData}}" wx:key="key">
+          <view class="dataLeft">
+            <view class="filter-checkbox {{item.IsChecked ? 'checked' : ''}}" data-datetime="{{item.Datetimes}}" bindtap="toggleItemCheck">
+              <view wx:if="{{item.IsChecked}}" class="checkmark"></view>
+            </view>
+          </view>
+          <view class="dataMid">
+            <view class="top">{{item.DateText}}</view>
+            <view class="bottom">{{item.EquipText}}<text wx:if="{{item.CustomerName}}"> · {{item.CustomerName}}</text></view>
+          </view>
+          <view class="dataRight">
+            <view class="top">体重 {{item.WT}}kg</view>
+            <view class="bottom">体脂百分比：{{item.PBF}}%</view>
+          </view>
+        </view>
+    </view>
+  </view>
+
+  <view class="filterActionBar">
+    <button class="completeButton" bindtap="setFilterChange">更改</button>
+  </view>
+
+  <view wx:if="{{showDateSheet}}" class="date-sheet-mask">
+    <view class="date-sheet-backdrop" catchtouchmove="preventDateSheetScroll" bindtap="closeDateSheet"></view>
+    <view class="date-sheet" catchtap="stopDateSheetTap">
+      <text class="date-sheet-title">请选择开始日期和结束日期。</text>
+      <view class="date-range-cards">
+        <view class="date-range-card start-card {{activeDateField == 'start' ? 'active' : ''}}" data-field="start" bindtap="selectDateField">
+          <text>开始</text>
+          <text class="date-range-value">{{startDateText}}</text>
+        </view>
+        <view class="date-range-card end-card {{activeDateField == 'end' ? 'active' : ''}}" data-field="end" bindtap="selectDateField">
+          <text>结束</text>
+          <text class="date-range-value">{{endDateText}}</text>
+        </view>
+      </view>
+      <view class="date-pickers">
+        <picker-view class="date-picker" value="{{datePickerValue}}" bindchange="setDate" bindpickstart="onDatePickStart" bindpickend="onDatePickEnd" immediate-change="{{true}}" indicator-style="height: 50px; border: 0; background: transparent;">
+          <picker-view-column>
+            <view wx:for="{{dateArray}}" wx:key="date" class="date-picker-item {{index == wheelCenterIndex ? 'wheel-center' : index == wheelCenterIndex - 1 ? 'wheel-before' : index == wheelCenterIndex + 1 ? 'wheel-after' : index < wheelCenterIndex ? 'wheel-before-far' : 'wheel-after-far'}}">{{item.dateText}}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+      <view class="date-sheet-actions">
+        <button class="date-close-button" bindtap="closeDateSheet">关闭</button>
+        <button class="date-next-button" bindtap="nextDateStep">{{activeDateField == 'start' ? '下一步' : '完成'}}</button>
+      </view>
+    </view>
+  </view>
+</view>

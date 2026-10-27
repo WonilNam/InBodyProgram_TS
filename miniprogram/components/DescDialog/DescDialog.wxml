@@ -1,0 +1,24 @@
+<!--components/DescDialog/DescDialog.wxml-->
+<cover-view class="mask" wx:if="{{status && useNativeOverlay}}" bindtap="handleCancel">
+  <cover-view class="dialog native-dialog" catchtap="preventTouchMove">
+    <cover-view class="dialog-header">
+      <cover-view class="title">{{title}}</cover-view>
+      <cover-image src="/images/btnCloseBlack.png" class="imgCancel" catchtap='handleCancel'></cover-image>
+    </cover-view>
+    <cover-view class="dialog-body native-dialog-body">
+      <cover-view wx:if="{{content}}" class='content'>{{content}}</cover-view>
+    </cover-view>
+  </cover-view>
+</cover-view>
+<view class="mask" wx:elif="{{status}}" catchtouchmove="preventTouchMove" bindtap="handleCancel">
+  <view class="dialog" catchtap="preventTouchMove">
+    <view class="dialog-header">
+      <view class="title">{{title}}</view>
+      <image src="/images/btnCloseBlack.png" class="imgCancel" catchtap='handleCancel' mode="widthFix"></image>
+    </view>
+    <scroll-view scroll-y class="dialog-body">
+      <view wx:if="{{content}}" class='content'>{{content}}</view>
+      <slot></slot>
+    </scroll-view>
+  </view>
+</view>

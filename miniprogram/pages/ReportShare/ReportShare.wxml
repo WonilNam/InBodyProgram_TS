@@ -1,0 +1,46 @@
+<view class="share-page">
+  <view wx:if="{{loading && !result}}" class="generating">
+    <view class="generating-card">
+      <view class="report-skeleton">
+        <view class="skeleton-brand"></view>
+        <view class="skeleton-line skeleton-line-long"></view>
+        <view class="skeleton-line"></view>
+        <view class="skeleton-section"></view>
+        <view class="skeleton-row"></view>
+        <view class="skeleton-row"></view>
+        <view class="skeleton-section"></view>
+        <view class="skeleton-row"></view>
+      </view>
+      <view class="loading-ring"></view>
+    </view>
+    <text class="generating-title">正在生成详细报告</text>
+    <text class="generating-note">使用当前选中的真实测量数据</text>
+  </view>
+
+  <view wx:elif="{{result}}" class="share-result">
+    <view class="preview-shell">
+      <scroll-view class="paper-preview" scroll-y enhanced show-scrollbar="false">
+        <image class="result-image" src="{{result}}" mode="widthFix" />
+      </scroll-view>
+      <view class="preview-tip" bindtap="preview">
+        <text>查看完整报告</text><text class="preview-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="action-bar">
+      <button class="action-button secondary-action" bindtap="save" disabled="{{busy}}">
+        <image src="/images/share_download_dark.svg" /><text>保存图片</text>
+      </button>
+      <button class="action-button primary-action" bindtap="shareMore" disabled="{{busy}}">
+        <image src="/images/share_send.svg" /><text>分享给好友</text>
+      </button>
+    </view>
+  </view>
+
+  <view wx:else class="generate-failed">
+    <text>详细报告生成失败</text>
+    <button bindtap="generateImage" disabled="{{busy}}">重新生成</button>
+  </view>
+
+  <canvas type="2d" id="shareCanvas" class="export-canvas" style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;" />
+</view>

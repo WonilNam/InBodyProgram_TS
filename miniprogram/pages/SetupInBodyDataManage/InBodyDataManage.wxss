@@ -1,0 +1,8 @@
+
+.inbodydatalist .item {width:750rpx;height:100rpx;border-bottom:solid 2rpx #d0d0d0;}
+.inbodydatalist .item button {border:0;padding:16rpx 16rpx 0 32rpx ;}
+.inbodydatalist .item .btnClose{height:48rpx;width:48rpx;}
+.inbodydatalist .btnArea1 {float:left;}
+.inbodydatalist .btnText1 {float:left;font-size:32rpx;line-height:92rpx;}
+.inbodydatalist .btnText2 {float:right;font-size:28rpx;color:#adadad;line-height:94rpx;}
+.inbodydatalist .btnArea2 {float:right;}

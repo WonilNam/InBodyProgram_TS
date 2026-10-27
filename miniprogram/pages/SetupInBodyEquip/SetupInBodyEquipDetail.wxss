@@ -1,0 +1,11 @@
+.wrap{width:100%;height:100%;}
+
+.header{width:750rpx;height:96rpx;font-size:28rpx;}
+.header .title{float:left;width:350rpx;font-size:32rpx;font-weight:bold;text-align:center;line-height: 96rpx;}
+.header .button{width:200rpx;float:right;border:0;height:96rpx;font-size:28rpx;line-height:92rpx;padding:0;color:black;}
+
+.help{padding:64rpx;text-align:center;background:#EFEFEF;font-size:28rpx;border-top:solid 1px #F3F3F3;border-bottom:solid 1px #F3F3F3;}
+
+.body{text-align:center;}
+.btnSet{width:600rpx;margin-top:32rpx;background-color:black;color:white;font-size:28rpx;}
+.equipImg{width:540rpx;height:540rpx;margin-top:32rpx;}

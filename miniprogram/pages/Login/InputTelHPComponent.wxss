@@ -1,0 +1,53 @@
+.wrap{width:100%;height: 100vh;box-sizing: border-box;display: flex;flex-direction: column;background-color: #ffffff;}
+.modal{height: 40vh;background-color:white;box-sizing: border-box;}
+.popup{height: 60vh;background-color:white;box-sizing: border-box;}
+
+.popup .body{padding: 30rpx 48rpx 10rpx 48rpx;font-size:30rpx;}
+.loginInput{float:left; height:64rpx;width:320rpx;font-size:28rpx;padding:12rpx;margin-top:6rpx;}
+
+.codeButton{float:right;height:88rpx;width:250rpx;font-size:28rpx;padding:16rpx 0;line-height:56rpx;background-color:rgba(0, 0, 0, 0);text-align: right;}
+.popup .body .box .btn::after{border: none;}
+.popup .body .box .btn1::after{border: none;}
+
+.popup .footer{
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40rpx;
+}
+
+.popup .footer .btnLogin {
+  width: 90% !important;
+  height: 88rpx !important;
+  line-height: 88rpx !important;
+  font-size: 32rpx !important;
+  border-radius: 44rpx !important;
+  background-color: rgb(181,9,55) !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-weight: normal !important;
+  border: none !important;
+}
+
+.popup .footer .btnLoginDisabled {
+  background-color: rgb(181,9,55) !important;
+  opacity: 0.3 !important;
+  color: #ffffff !important;
+}
+
+.popup .footer .rejectLinkWrap {
+  width: 100%;
+  text-align: center;
+  margin-top: 24rpx;
+  padding: 10rpx 0;
+}
+
+.popup .footer .rejectLink {
+  font-size: 28rpx;
+  color: #888888;
+  text-decoration: underline;
+  letter-spacing: 1rpx;
+}

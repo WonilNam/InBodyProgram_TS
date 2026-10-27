@@ -1,0 +1,49 @@
+<view class='signup_title'>
+    <label>用户信息</label>
+</view>
+<view class='contents'>
+
+<form bindsubmit="formSubmit">
+  <view class="userinfo"></view>
+  <view class='signup_subtitle'>
+      输入InBody测量时必要的信息后，点击[测试开始]，输入的信息可在“查看更多> 用户信息”里更改。
+    
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    性别
+  </view>
+  <view class='signup_right1'>
+    <radio-group name="rbGender">
+      <label class='gender_name'><radio value="F" checked='{{Gender_F}}'/>女性</label>
+      <label class='gender_name'><radio value="M" checked='{{Gender_M}}'/>男性</label>
+    </radio-group>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    身高
+  </view>
+  <view class='signup_right'>
+    <input name="txtHeight"  type='digit' maxlength='5' placeholder='身高' value='{{Height}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    年龄
+  </view>
+  <view class='signup_right'>
+    <input name="txtAge" type='number' maxlength='2' placeholder='年龄' value='{{Age}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+
+  <view class='footer'>
+    <button class='btn_complete' formType="submit" disabled='{{isbtnDisable}}' loading='{{btnLoading}}' >测试开始</button>
+  </view>
+  </form>
+
+
+</view>

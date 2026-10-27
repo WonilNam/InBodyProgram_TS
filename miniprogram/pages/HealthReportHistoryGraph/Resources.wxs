@@ -1,0 +1,67 @@
+var Resources = {
+  ko: {
+    Txt_InBodyResult: '인바디결과',
+    Txt_HistoryGraph: '변화그래프',
+    Txt_Recent: '최근',
+    Txt_Total: '전체',
+    Item_WT: '체중',
+    Item_SMM: '근육량',
+    Item_BFM: '체지방량',
+    Item_PBF: '체지방률',
+    Item_WED: '세포외수분비',
+    Item_INLL: '다리근육량',
+    Item_BMI: 'BMI',
+    Item_VFA: '내장지방단면적',
+    Item_VFALevel: '내장지방레벨',
+    Item_BMR: '기초대사량',
+    Item_InBody: '인바디',
+    Item_FS: '인바디점수',
+    Item_WHR: '복부지방률',
+    Item_TBW: '체수분',
+    Item_ICW: '세포내수분',
+    Item_ECW: '세포외수분',
+    Item_PROTEIN: '단백질',
+    Item_MINERAL: '무기염',
+    Item_BMC: '골무기질량',
+    Item_BCM: '체세포량',
+    Item_BSMI: 'SMI',
+    Item_WBPA50: '전신 위상각',
+  },
+  cn: {
+    Txt_InBodyResult: 'InBody结果',
+    Txt_HistoryGraph: '历史记录',
+    Txt_Recent: '最近',
+    Txt_Total: '全部',
+    Item_WT: '体重',
+    Item_SMM: '骨骼肌量',
+    Item_BFM: '体脂肪量',
+    Item_PBF: '体脂百分比',
+    Item_WED: '细胞外水分比率',
+    Item_INLL: '下肢肌肉量',
+    Item_BMI: 'BMI',
+    Item_VFA: '内脏脂肪面积',
+    Item_VFALevel: '内脏脂肪等级',
+    Item_BMR: '基础代谢率',
+    Txt_InBody: 'InBody',
+    Item_FS: 'InBody 分数',
+    Item_WHR: '腰臀比',
+    Item_TBW: '体水分',
+    Item_ICW: '细胞内水分',
+    Item_ECW: '细胞外水分',
+    Item_PROTEIN: '蛋白质',
+    Item_MINERAL: '无机盐',
+    Item_BMC: '骨矿物质含量',
+    Item_BCM: '身体细胞量',
+    Item_BSMI: 'SMI骨骼肌指数',
+    Item_WBPA50: '全身相位角',
+  }
+};
+
+var getResources = function(resID, L){
+  var lang = L;
+  return Resources[lang][resID];
+};
+
+module.exports = {
+  getString: getResources
+}

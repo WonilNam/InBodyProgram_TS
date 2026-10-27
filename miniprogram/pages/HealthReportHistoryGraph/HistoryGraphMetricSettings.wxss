@@ -1,0 +1,174 @@
+.metric-page {
+  min-height: 100vh;
+  padding-bottom: calc(152rpx + env(safe-area-inset-bottom));
+  background: #f7f8fa;
+  color: #1e2431;
+  box-sizing: border-box;
+}
+
+.status-bar {
+  background: #fff;
+}
+
+.metric-nav {
+  display: flex;
+  align-items: center;
+  height: 130rpx;
+  padding-top: 50rpx;
+  padding-left: 48rpx;
+}
+
+.back-arrow {
+  width: 24rpx;
+  height: 24rpx;
+  border-left: 5rpx solid #111;
+  border-bottom: 5rpx solid #111;
+  transform: rotate(45deg);
+}
+
+.metric-intro {
+  margin: 56rpx 42rpx 90rpx;
+  font-size: 40rpx;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.metric-count {
+  margin: 0 42rpx 34rpx;
+  color: #3e4b65;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.metric-count text {
+  margin-left: 8rpx;
+  color: #962f48;
+}
+
+.metric-list {
+  padding: 0 42rpx;
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  height: 126rpx;
+  margin-bottom: 14rpx;
+  padding: 0 34rpx;
+  border-radius: 25rpx;
+  background: #fff;
+  box-shadow: 0 3rpx 9rpx rgba(32, 41, 58, .14);
+  box-sizing: border-box;
+}
+
+.metric-row.dragging {
+  box-shadow: 0 6rpx 18rpx rgba(32, 41, 58, .25);
+}
+
+.metric-choice {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+}
+
+.metric-check {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 50rpx;
+  border: 2rpx solid #c8cbd1;
+  border-radius: 7rpx;
+  box-sizing: border-box;
+}
+
+.metric-check.checked {
+  border-color: #3e4b65;
+  background: #3e4b65;
+}
+
+.metric-check-mark {
+  display: block;
+  width: 27rpx;
+  height: 27rpx;
+}
+
+.metric-name {
+  display: flex;
+  align-items: center;
+  height: 40rpx;
+  overflow: hidden;
+  color: #414b60;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drag-handle {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 56rpx;
+  height: 84rpx;
+  margin-left: 20rpx;
+}
+
+.drag-handle view {
+  width: 40rpx;
+  height: 2rpx;
+  margin: 6rpx auto;
+  background: #aaa;
+}
+
+.metric-empty {
+  padding: 80rpx 0;
+  color: #939aa6;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.metric-hidden-section {
+  margin-top: 80rpx;
+}
+
+.metric-hidden-section .metric-count {
+  color: #727b8b;
+}
+
+.metric-hidden-section .metric-count text {
+  color: #aeb4bd;
+}
+
+.metric-action {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 22rpx 34rpx calc(28rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(transparent, #f7f8fa 22%);
+}
+
+.metric-action button {
+  height: 112rpx;
+  border: 0;
+  border-radius: 20rpx;
+  background: #3e4b65;
+  color: #fff;
+  font-size: 34rpx;
+  line-height: 112rpx;
+}
+
+.metric-action button::after {
+  border: 0;
+}
+.metric-description { margin: -54rpx 42rpx 36rpx; font-size: 27rpx; line-height: 1.6; color: #858d99; }
+.dashboard-mode .metric-nav { height: 88rpx; padding-top: 0; }
+.dashboard-mode .metric-intro { margin: 24rpx 42rpx 20rpx; font-size: 36rpx; }
+.dashboard-mode .metric-description { margin: 0 42rpx 32rpx; }
+.dashboard-mode .metric-hidden-section { margin-top: 40rpx; }

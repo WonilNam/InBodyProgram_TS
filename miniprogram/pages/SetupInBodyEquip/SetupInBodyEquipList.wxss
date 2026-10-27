@@ -1,0 +1,15 @@
+.wrap{width:100%;height:100%;}
+
+.title{width:750rpx;height:96rpx;text-align:center;line-height: 96rpx;font-size:32rpx;font-weight:bold;}
+.help{padding:64rpx;text-align:center;background:#EFEFEF;font-size:28rpx;border-top:solid 1px #F3F3F3;border-bottom:solid 1px #F3F3F3;}
+
+.itemArea .item{width:750rpx;height:240rpx;border-bottom:solid 1px #F3F3F3;}
+.itemArea .item .textArea{width:540rpx;height:240rpx;float:left;display: flex;flex-direction: column;}
+.itemArea .item .textArea .top {font-size:32rpx;height:120rpx;line-height:176rpx;padding-left:32rpx;font-weight:bold}
+.itemArea .item .textArea .bottom {font-size:28rpx;height:104rpx;padding-left:32rpx;}
+.itemArea .item .imageArea {padding:56rpx 32rpx 32rpx 0;float:right;}
+.itemArea .item .imageArea image{width:136rpx;height:136rpx;}
+
+.itemArea .itemM{width:750rpx;height:120rpx;border-bottom:solid 1px #F3F3F3;}
+.itemArea .itemM .textArea{width:540rpx;height:120rpx;float:left;}
+.itemArea .itemM .textArea .top {display:inline-block;font-size:28rpx;height:120rpx;line-height:120rpx;padding-left:32rpx;font-weight:bold}

@@ -1,0 +1,31 @@
+var Resources = {
+  ko: {
+    Txt_InBodyResult: '인바디결과',
+    Txt_HistoryGraph: '변화그래프',
+    Txt_Recent: '최근',
+    Txt_Total: '전체',
+    Item_BP: '체중',
+    Item_Pulse: '근육량',
+    
+    Txt_InBody: '인바디',
+  },
+  cn: {
+    Txt_InBodyResult: 'InBody结果',
+    Txt_HistoryGraph: '历史记录',
+    Txt_Recent: '最近',
+    Txt_Total: '全部',
+    Item_BP: '血压',
+    Item_Pulse: '脉搏数',
+    
+    Txt_InBody: 'InBody',
+  }
+};
+
+var getResources = function (resID, L) {
+  var lang = L;
+  return Resources[lang][resID];
+};
+
+module.exports = {
+  getString: getResources
+}

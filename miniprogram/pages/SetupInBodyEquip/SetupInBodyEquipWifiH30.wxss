@@ -1,0 +1,20 @@
+.wrap{width:100%;height: 100vh;box-sizing: border-box;padding-top: 5vh;display: flex;flex-direction: column;overflow: hidden;}
+
+.header{width:100%;height:15vh;font-size:5vw;color: rgb(64, 75, 95);}
+.header .title{width:55vw;height:50%;font-weight:bold;line-height: 7.5vh;padding-left: 4.5vw;}
+.header .text{width:18vw;height:50%;padding-left: 4.5vw;}
+
+.itemArea{position:relative;display: flex;flex-direction: column;align-items: center;width:100%;height:67vh;}
+.itemArea  .imageArea image{width:85vw;height:50vh;}
+.itemArea  .textArea{width:90%;height:9vh;display: flex;padding-left: 4.5vw;position: absolute;top: 66%;flex-direction: column;}
+.itemArea  .textArea .top {font-size:28rpx;height:4vh;line-height:4vh;color: rgb(66, 68, 93);}
+.itemArea  .textArea .bottom {font-size:28rpx;height:4vh;line-height:4vh;color: rgb(66, 68, 93);}
+.itemArea .txt{width: 90%;height: 11vh;border: solid 1rpx gray;border-radius: 20rpx;display: flex;flex-direction: column;justify-content: center;margin-top: 3vh;}
+.itemArea .txt .top {font-size:28rpx;height:5vh;font-weight:bold;line-height:5vh;color: rgb(121, 134, 143);margin-left: 30rpx;}
+.itemArea .txt .bottom {font-size:30rpx;height:5vh;font-weight:bold;line-height:5vh;color: rgb(64, 75, 95);margin-left: 30rpx;overflow: hidden;}
+
+
+.foot{display: flex;justify-content: center;width: 100%;font-size: 5vw;}
+.foot .btn{height:13vh;width: 92%;display: flex;align-items: flex-start;}
+.foot .btn .btnSet{width:48%;background-color:rgb(241,242,246);color:black;font-size:5vw;border-radius: 15rpx;font-weight: bold;}
+.foot .btn .btnUse{width:48%;background-color:rgb(61, 73, 97);color:white;font-size:5vw;border-radius: 15rpx;}

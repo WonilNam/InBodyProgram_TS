@@ -1,0 +1,35 @@
+<wxs src="./Resources.wxs" module="res"></wxs>
+
+<view wx:if="{{isLoading}}" class="history-loading"><view class="history-loading-spinner"></view><text>加载中…</text></view>
+<view class="history-page" wx:elif="{{IsExistsData}}">
+  <view class="history-controls">
+    <view class="filter-row">
+      <view class="filter-chip date-chip" data-open-date="1" bindtap="setFilterChange">
+        <text class="chip-text">{{shortDateRangeText || '全部'}}</text>
+        <view class="chip-chevron"></view>
+      </view>
+      <view class="filter-chip equip-chip" bindtap="setFilterChange">
+        <text class="chip-text">{{shortEquipText || '所有设备'}}</text>
+        <view class="chip-chevron"></view>
+      </view>
+    </view>
+    <view class="controls-bottom">
+      <view class="range-control" bindtap="toggleGraphRange">
+        <text class="range-label {{graphType == 'R' ? 'active' : ''}}">{{res.getString('Txt_Recent', L)}}</text>
+        <view class="range-track {{graphType == 'T' ? 'all' : ''}}"><view class="range-thumb"></view></view>
+        <text class="range-label {{graphType == 'T' ? 'active' : ''}}">{{res.getString('Txt_Total', L)}}</text>
+      </view>
+      <view class="metric-settings-link" bindtap="openMetricSettings"><image class="settings-icon" src="/images/history_settings.svg"></image><text>显示项设置</text></view>
+    </view>
+  </view>
+
+  <view class="history-graph-area">
+    <view class="graph-empty" wx:if="{{historyGroup.length == 0}}">暂无符合筛选条件的图表数据</view>
+    <view wx:for="{{historyGroup}}" wx:key="index">
+      <item-graph historyItem="{{item}}" historyData="{{historyData}}" graphType="{{graphType}}" wx:if="{{flag == index}}" />
+    </view>
+  </view>
+
+</view>
+
+<view wx:else class="history-empty">InBody测试结果不存在</view>

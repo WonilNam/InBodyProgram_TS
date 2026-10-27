@@ -1,0 +1,10 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "main-compo": "/pages/HealthReportMain/HealthReportDashboard",
+    "bargraph-compo": "/pages/HealthReportBarGraph/HealthReportBarGraphComponent",
+    "historygraph-compo": "/pages/HealthReportHistoryGraph/HealthReportHistoryGraphComponent",
+    "me-compo": "/pages/ViewMoreMain/ViewMoreMain",
+    "nodata-compo": "/pages/HealthReportMain/HealthReportNoDataComponent"
+  }
+}

@@ -1,0 +1,102 @@
+.wrap {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  width: 100%;
+  height: 15vh;
+  font-size: 5vw;
+  color: rgb(64, 75, 95);
+}
+.header .title {
+  width: 70%;
+  height: 40%;
+  font-weight: bold;
+  padding-left: 4.5vw;
+}
+.header .text {
+  width: 25%;
+  height: 40%;
+  padding-left: 4.5vw;
+}
+
+.itemArea {
+  width: 100%;
+  height: 67vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.itemArea .imageArea {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.itemArea .imageArea image {
+  width: 85%;
+  height: 95%;
+}
+.itemArea .searchingArea {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemArea .searchingArea image {
+  width: 100%;
+  height: 70%;
+}
+
+.itemArea .textArea {
+  width: 100%;
+  height: 25%;
+}
+.itemArea .textArea .top {
+  font-size: 4vw;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(105, 109, 119);
+}
+.itemArea .textArea .bottom {
+  font-size: 4vw;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(105, 109, 119);
+  white-space: pre-line;
+}
+
+.itemArea .textArea .tip {
+  margin-top: 2vh;
+  font-size: 4.5vw;
+  text-align: center;
+  color: rgb(64, 75, 95);
+}
+
+.foot {
+  width: 100%;
+  height: 13vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+.btnSet {
+  width: 90%;
+  background-color: rgb(54, 62, 81);
+  color: white;
+  font-size: 5vw;
+  border-radius: 1.5vw;
+}
+.imgConnect {
+  width: 80rpx;
+  height: 80rpx;
+}

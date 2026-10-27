@@ -1,0 +1,28 @@
+<view class="wrap">
+  <view class="header">
+    <view class="title">{{title}}</view>
+    <view class="text">更智能</view>
+  </view>
+ 
+  <view class="itemArea">
+
+      <view class="imageArea">
+        <image src="{{imgSrc}}"></image>
+      </view>
+      <view class="textArea">
+        <view class="top" >存在设备可连接的WiFi</view>
+        <view class="bottom"  >测试结果将自动同步到APP。</view>    
+      </view>
+     <view class="txt">
+        <view class="top">已保存的WiFi</view>
+        <view class="bottom">{{SSID}}</view>
+     </view>
+   
+  </view>
+ <view class="foot">
+    <view class="btn">
+      <button class="btnSet" bindtap="reset" >重新设置</button>
+      <button class="btnUse" bindtap="continuedUse">继续使用</button>
+    </view>
+  </view>
+</view>

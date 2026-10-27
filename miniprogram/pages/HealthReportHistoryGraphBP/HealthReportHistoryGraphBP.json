@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "nodata-compo": "/pages/HealthReportMain/HealthReportNoDataComponent"
+  }
+}

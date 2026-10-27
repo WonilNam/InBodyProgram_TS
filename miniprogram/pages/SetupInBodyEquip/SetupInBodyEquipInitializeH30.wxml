@@ -1,0 +1,24 @@
+<view class="wrap">
+    <view class="header">
+        <image src="/images/imgDialH30100@3x.png"></image>
+    </view>
+
+    <body class="itemArea">
+        <view class="title">设备数据初始化</view>
+        <view class="text">请注意，数据初始化将删除设备中保存的昵称和检查结果，并且无法恢复。不仅是您自己的数据，其他使用者的数据也将被删除。如果您的家人或朋友也在使用，请在初始化之前告知他们将数据导出到InBody App</view>
+        <view class="title">删除昵称</view>
+        <view class="title">删除检测结果</view>
+
+
+        <view class="text">如果您想要初始化，请再次输入下面的序列号</view>
+        <view class="text">序列号:</view>
+        <view class="inputArea">
+            <input type="text" value="{{displayValue}}" bindinput="onInput" bindconfirm="onConfirm" maxlength="25" placeholder="序列号" />
+        </view>
+    </body>
+
+    <view class="foot">
+        <button class="btnSet" disabled="{{!btnEnabled}}" bindtap="onConfirm" style="{{!btnEnabled?'background-color:rgb(240,189,196);':'background-color:rgb(212,33,75)'}} ">初始化</button>
+    </view>
+
+</view>

@@ -1,0 +1,16 @@
+<!--components/dialog.wxml-->
+<view class="mask" wx:if="{{status}}" catchtouchmove="preventTouchMove" bindtap="handleCancel">
+  <view class="dialog" catchtap="preventTouchMove">
+    <view class="dialog-header" wx:if="{{title}}">
+      {{title}}
+    </view>
+    <scroll-view scroll-y class="dialog-body {{title ? '' : 'no-title'}}">
+      <view wx:if="{{content}}" class="content">{{content}}</view>
+      <slot></slot>
+    </scroll-view>
+    <view class="dialog-footer">
+      <view class="dialog-btn dialog-btn-cancel" bindtap="handleCancel" wx:if="{{showCancel}}">{{cancelText}}</view>
+      <view class="dialog-btn dialog-btn-confirm" bindtap="handleConfirm">{{confirmText}}</view>
+    </view>
+  </view>
+</view>

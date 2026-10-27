@@ -1,0 +1,34 @@
+.wrap{width:100%;height: 100vh;box-sizing: border-box;padding-top: 4vh;display: flex;flex-direction: column;}
+
+.header{width:100%;height:25vh;font-size:5vw;color: rgb(64, 75, 95);display: flex;flex-direction: column;align-items: center;}
+.header .skip{width:90%;height:5vh;line-height: 5vh; color:rgb(132,132,132);font-size: 30rpx;text-align: right;}
+.header .title{width:90%;height:5vh;line-height: 5vh; color:rgb(212,33,75);font-weight:bold;margin-top: 3vh;}
+.header .text{width:90%;height:10vh;line-height: 5vh;font-weight:bold;margin-top: 1vh;color:rgb(64, 69, 88);font-weight:bold;}
+
+.itemArea {width:100%;height:58vh;display: flex;flex-direction: column;align-items: center;justify-content: flex-end;padding-bottom: 4vh;box-sizing: border-box;position: relative;}
+.itemArea .textArea{color:rgb(134, 134, 134);width:90%;line-height: 50rpx;height:10vh;font-size: 28rpx;}
+.itemArea .imgText{color:rgb(134, 134, 134);font-size: 28rpx;margin: 0rpx auto;}
+
+.itemArea1  .imageArea1{width:100%;display: flex;justify-content: flex-end;height: 57vh;flex-direction: column;align-items: center;}
+.itemArea1  .imageArea1 image{width:100%;height: 41vh;} 
+
+
+.itemArea2{height:58vh;padding-bottom: 1vh;}
+.itemArea2  .textArea .tilt2{height:4vh}
+.itemArea2  .imageArea2{width:100%;display: flex;justify-content: flex-end;height: 53vh;flex-direction: column;align-items: center;}
+.itemArea2  .imageArea2 image{width:90%;height: 51vh;} 
+
+
+.itemArea3  .textArea{position: absolute;top: 0vh;width: 90%;}
+.itemArea3  .textArea .tilt3{width:100%;line-height: 3vh;font-size: 3.5vw;letter-spacing: 0.5vw;}
+.itemArea3  .imageArea3{width:750rpx;height: 30vh;}
+.itemArea3  .imageArea3 image{width:100%;height: 30vh;} 
+
+.itemArea4  .textArea{position: absolute;top: 0vh;width: 90%;}
+.itemArea4  .textArea .tilt4{width:100%;line-height: 3vh;font-size: 3.5vw;letter-spacing: 0.5vw;}
+.itemArea4  .imageArea4{width:750rpx;display: flex;justify-content: flex-end;height: 530rpx;flex-direction: column;align-items: center;}
+.itemArea4  .imageArea4 image{width:700rpx;height: 370rpx;} 
+
+  
+.foot{width: 100%;height: 13vh;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;}
+.btnSet{width: 90%;background-color:rgb(212,33,75);color:white;font-size:40rpx;border-radius: 15rpx;font-size: 5vw;}

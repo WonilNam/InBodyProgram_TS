@@ -1,0 +1,71 @@
+<view class='signup_title'>
+    <label>회원가입</label>
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"> getPhoneNumber</button> 
+</view>
+
+<view class='contents'>
+
+<form bindsubmit="formSubmit">
+
+  <!--<view class="userinfo"></view>-->
+  <view class='signup_subtitle'>
+    InBody 앱에 처음이시네요!.\n
+    먼저 회원 가입을 해주세요.
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    핸드폰번호
+  </view>
+  <view class='signup_right'>
+    <input name="txtHP" type='number' maxlength='11' placeholder='핸드폰번호' value='{{HP}}'></input>
+  </view>
+  <!--<view class ="signup_right1">
+    <button open-type="getPhoneNumber" bindgetphonenumber="test">핸드폰번호 가져오기</button> 
+  </view>-->
+    <view class='item_underline'></view>
+  </view>
+
+  <view class='signup_item'>
+  <view class='signup_left'>
+    性别
+  </view>
+  <view class='signup_right1'>
+    <radio-group name="rbGender">
+      <label class='gender_name'><radio value="F" checked='{{Gender_F}}'/>여성</label>
+      <label class='gender_name'><radio value="M" checked='{{Gender_M}}'/>남성</label>
+    </radio-group>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    身高
+  </view>
+  <view class='signup_right'>
+    <input name="txtHeight"  type='digit' maxlength='5' placeholder='신장' value='{{Height}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    年龄
+  </view>
+  <view class='signup_right'>
+    <input name="txtAge" type='number' maxlength='2' placeholder='연령' value='{{Age}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_agree' >
+  <label class='font_underline' ><radio value="F" checked='{{agree_term}}'/>이용약관</label>에 동의합니다.
+  </view>
+  <view class='signup_privacy' >
+  <label class='font_underline'><radio value="F" checked='{{agree_privacy}}'/>개인정보처리방침</label>에 동의합니다.
+  </view>
+
+  <view class='item_complete'>
+    <button class='btn_complete' formType="submit">완료</button>
+  </view>
+  </form>
+
+
+</view>

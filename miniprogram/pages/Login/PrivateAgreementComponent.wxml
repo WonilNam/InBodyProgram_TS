@@ -1,0 +1,15 @@
+<!--pages/Login/PrivateAgreementComponent.wxml-->
+<view class="modal">
+</view>
+<view class="popup" style="top:320rpx; height:520rpx">
+  <view style="height:270rpx;text-align:left;padding:56rpx;border-bottom:solid 2rpx #d0d0d0">
+    <text style="font-size:40rpx;display:block;color: dimgrey;">InBody隐私政策提示</text>
+    <text style="margin-top:30rpx;font-size:24rpx;">感谢您使用InBody APP。我们非常重视您的个人信息和隐私保护。为了更好地保障您的个人权益，依照最新法规要求，在您使用InBody 小程序前，请您认真阅读</text>
+    <navigator style="display: inline; color: blue;font-size: 37rpx;text-decoration-line: underline; " url="/pages/Login/PrivatePolicy" >InBody隐私政策与个人信息处理方针</navigator>
+
+    <text style="margin-top:30rpx;font-size:24rpx;">的全部内容，同意并接受全部条款后开始使用本APP及服务。</text>
+    
+  </view>
+  <button style="display:inline-block;height:80rpx;padding:10rpx;width:260rpx;margin-top:30rpx;margin-left:40rpx;font-size:24rpx;"  bindtap="OnDisagreed">仅浏览</button>
+  <button style="display:inline-block;height:80rpx;padding:10rpx;width:260rpx;margin-top:30rpx;margin-left:40rpx;font-size:24rpx;"  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">同意</button>
+</view>

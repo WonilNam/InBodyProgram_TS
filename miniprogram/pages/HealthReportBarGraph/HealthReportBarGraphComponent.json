@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+      "body-coordinate":"/components/BodyComponent/BodyComponent",
+      "desc-dialog":"/components/DescDialog/DescDialog"
+  }
+}      

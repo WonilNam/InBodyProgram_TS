@@ -1,0 +1,52 @@
+<page-meta>
+<navigation-bar title="手机登录"></navigation-bar>
+</page-meta>
+<view class="wrap">
+<view class="modal">
+  <view style="background-color:white;height:100%;display:flex;align-items: center;justify-content: center;">
+    <image src="/images/inbody.png" mode="widthFix" style="width:70%;height:45vh"/>
+  </view>
+</view>
+<view class="popup">
+  <form bindsubmit="formSubmit">
+    <view class="body">
+      <view class="box">
+        <input name="txtTelHP" formType="submit" class="loginInput {{inputClassTelHP}}" type='number' maxlength='11' placeholder='请输入手机号码' value='{{TelHP}}' bindinput="bindInput"/>
+        <button id="TelHP" class="codeButton btn" disabled='{{btnSendDisabled}}' formType="submit" loading="{{btnSendLoading}}">{{btnSendText}}</button>
+        <view style="clear:both;"></view>
+      </view>
+      <view style="width: 100%; height: 1rpx; border-bottom: 1rpx solid #d0d0d0;"></view>
+      <view class="box" style="margin-top:20rpx;">
+        <input name="txtCode" formType="submit" class="loginInput {{inputClassCode}}" type='number' maxlength='6' placeholder='请输入验证码' bindinput="bindInputCode" value="{{txtCode}}"/>
+        <button id="Auth" class="codeButton btn1" disabled='{{btnAuthDisabled}}' formType="submit" style="display: none;">验证</button>
+        <button disabled='{{btnCancelDisabled}}' bindtap="bindBtnCancel" class="codeButton btn0" style="display: none; margin-left:10rpx;">取消</button>
+        <view style="clear:both;"></view>
+      </view>
+      <view style="width: 100%; height: 1rpx; border-bottom: 1rpx solid #d0d0d0;"></view>
+      <view style="font-size: 20rpx;padding: 14rpx;color: rgb(181,9,55);height: 24rpx; ">
+       <text style="{{isFalseTelHP}}">请先输入完整的11位手机号</text>
+      </view>
+      <!-- <checkbox-group bindchange="setItemCheck" >
+        <label>
+        <view>
+          <checkbox checked="true" id="a" value="a"></checkbox>
+          </view>
+          <text>이용약관에 동의합니다.</text>
+        </label>
+        <label>
+          <checkbox checked="true" id="b" value="b"></checkbox>
+          <view>개인정보처리방침에 동의합니다.</view>
+        </label>
+      </checkbox-group> -->
+      <!-- <input name="txtTelHP" type='number' maxlength='11' placeholder='确认手机号码' bindinput="bindInput" value='{{TelHP}}'></input> -->
+    </view>
+
+    <view class="footer">
+      <button id="Confirm" class="btnLogin {{btnDisabled || !isSend ? 'btnLoginDisabled' : ''}}" disabled="{{btnDisabled || !isSend}}" formType="submit">登录</button>
+      <view class="rejectLinkWrap" bindtap="onRejectLogin">
+        <text class="rejectLink">暂不登录</text>
+      </view>
+    </view>
+  </form>
+</view>
+</view>

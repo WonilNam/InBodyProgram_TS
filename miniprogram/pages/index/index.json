@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+   
+    "input-telhp": "/pages/Login/InputTelHPComponent",
+    "get-telhp": "/pages/Login/GetTelHPComponent",
+	  "get-private": "/pages/Login/PrivateAgreementComponent"
+  }
+}

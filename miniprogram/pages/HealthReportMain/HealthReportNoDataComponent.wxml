@@ -1,0 +1,4 @@
+<view class="noDataBody">
+  <text class="noDataText" wx:if="{{Type == 'InBody'}}">没有InBody测量结果</text>
+  <text class="noDataText" wx:if="{{Type == 'BP'}}">没有血压值测量结果</text>
+</view>

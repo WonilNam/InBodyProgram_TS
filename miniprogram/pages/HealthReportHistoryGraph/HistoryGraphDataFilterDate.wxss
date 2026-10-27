@@ -1,0 +1,61 @@
+page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+  box-sizing: border-box;
+}
+
+.title {
+  background-color: #eeeeee;
+  font-size: 13px;
+  color: #757575;
+  padding: 14px 16px 10px 16px;
+  font-weight: 500;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.picker {
+  height: 380rpx;
+  width: 100%;
+  text-align: center;
+  background-color: #ffffff;
+  flex-shrink: 0;
+}
+
+.picker-item {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 15px;
+  color: #333333;
+  box-sizing: border-box;
+}
+
+.picker-spacer {
+  flex: 1;
+}
+
+.filterActionBar {
+  padding: 16rpx 32rpx calc(16rpx + env(safe-area-inset-bottom));
+  border-top: 1px solid #eee;
+  background: #fff;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.filterActionBar .completeButton {
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 0;
+  border-radius: 40rpx;
+  background: #2196f3;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.filterActionBar .completeButton:active {
+  opacity: 0.85;
+}

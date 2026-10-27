@@ -1,0 +1,20 @@
+<view class="wrap">
+  <view class="header">
+    <view class="skip" bindtap="skipStep">跳过</view>
+    <view class="title">用户识别提示</view>
+    <view class="text">{{tiltText}}</view>
+  </view>
+
+  <view class="itemArea itemArea{{viewType}}"> 
+      <view class="textArea">      
+        <view class="tilt tilt{{viewType}}" wx:if="{{viewType!=1}}" >{{tiltToText}}</view>
+      </view>
+      <view class="imageArea{{viewType}}" >
+          <image src="/images/{{imgSrc}}"></image>
+      </view>  
+      <view class="imgText"  wx:if="{{viewType == 3 || viewType == 4 }}">屏幕显示如下</view>
+  </view>
+ <view class="foot foot{{viewType}}">
+    <button class="btnSet" bindtap="nextStep" >下一步</button>
+  </view>
+</view>

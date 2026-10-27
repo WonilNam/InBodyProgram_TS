@@ -1,0 +1,6 @@
+<!--pages/Login/PrivatePolicy.wxml-->
+<view class="page-body">
+  <view class="page-section page-section-gap">
+    <web-view src="https://wechat.lookinbody.cn/html/app_zh/privacy.html"></web-view>
+  </view>
+</view>

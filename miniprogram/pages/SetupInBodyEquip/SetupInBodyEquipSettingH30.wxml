@@ -1,0 +1,68 @@
+<view class="wrap">
+
+  <view class="header">
+    <view class="title">
+       <image src="{{imgSrc}}"></image>
+    </view>
+    <view class="eqpName">{{title}} {{AKResponse.wifiUsageVariable == 1?'(WiFi)':''}}</view>
+    <view class="eqpVersion">{{AKResponse.programVersion}}</view>
+    <button class="btnSet" bindtap="moveTutorial" >{{btnText}}</button>
+  </view>
+ 
+  <view class="itemArea"> 
+    <view  class="txtSetting">设置</view>
+    <view class="cntUser">
+        <view class="txt">       
+            <view>已连接的用户</view>
+            <!-- <image class="next" src="/images/btnPaginationNextBlack.png" wx:if="{{isConnected}}"></image> -->
+        </view>
+        <view class="img" wx:if="{{isConnected}}">
+            <image class="user" src="/images/user{{userCount > 3?4:userCount}}.png"></image>
+            <view class="count">
+                <view >{{userCount}}</view>
+                <view >用户</view>
+            </view>
+        </view>
+    </view>
+    <view class="settings">
+        <view class="box">
+            <view >WiFi设置</view>
+            <view class="ssid" wx:if="{{isConnected}}"  bindtap='moveWifiSetting'>
+                <view  style="color: gray;margin-right: 10rpx;overflow: hidden;">{{AKResponse.wifiUsageVariable == 1 ?AKResponse.ssid : '关'}}</view>
+                <image class="next" src="/images/btnPaginationNextBlack.png"  ></image>
+            </view>          
+        </view>    
+    </view>
+    <view class="settings">
+        <view class="box">
+            <view>设备提示音</view>
+            <switch checked="{{AKResponse.sound == 1}}"  bindchange="switchChanged" wx:if="{{isConnected}}"></switch>
+        </view>
+     
+    </view>
+    <view class="settings">
+        <view class="box">
+            <view>单位设定</view>
+            <view class="right" wx:if="{{isConnected}}">
+                <view bindtap = 'setInch' style="{{!unitKg?'font-weight: bold;color: black;':''}}">lb/inch</view>
+                <view  bindtap = 'setKg' style="{{unitKg?'font-weight: bold;color: black;':''}}">kg/cm</view>
+            </view>
+         
+        </view>
+    </view>
+    <view class="settings">
+        <view class="box">
+            <view style="color: red;"  bindtap="initialize" >数据初始化</view>
+        </view>
+   
+    </view>
+    <view class="settings">
+        <view class="box" bindtap="disconnect"  >
+            <view>断开连接</view>
+        </view>
+    
+    </view>
+  </view>
+
+</view>
+<view class='mask' wx:if="{{showMask}}" ></view>

@@ -1,0 +1,60 @@
+page {
+  height: 100%;
+  background-color: #f7f8fa;
+  box-sizing: border-box;
+}
+
+.equipContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.dataList {
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.dataList .listBarArea{background-color:#eeeeee;padding:10px 16px 10px 16px;height:20px;}
+.dataList .listBarArea .left{float:left;line-height:20px;}
+.dataList .listBarArea .right{float:right;}
+.dataList .listBarArea .txt{font-size:12px;color:#757575;font-weight:bold;}
+.dataList .listBarArea .btn{font-size:10px;border:0px;line-height:20px;float:left;padding:0px 10px 0px 10px;}
+.dataList .listBarArea .btn.clear{color:#2196f3;border:solid 1px #2196f3;margin-right:8px;}
+.dataList .listBarArea .btn.all{background-color:#2196f3;color:#ffffff;}
+
+.list .listItem{padding:16px;font-size:14px;}
+.list .listItem checkbox{margin-right:8px;}
+.list .listItem  checkbox .wx-checkbox-input{border-radius:50%;color:white;}
+.list .listItem  checkbox .wx-checkbox-input-checked{background-color:#333;color:white;}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {width: 28rpx;height: 28rpx;line-height: 28rpx;text-align: center;font-size: 22rpx;color: #fff;background: transparent;
+transform: translate(-50%, -50%) scale(1);-webkit-transform: translate(-50%, -50%) scale(1);}
+
+.equip-spacer {
+  flex: 1;
+}
+
+.filterActionBar {
+  padding: 16rpx 32rpx calc(16rpx + env(safe-area-inset-bottom));
+  border-top: 1px solid #eee;
+  background: #fff;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.filterActionBar .completeButton {
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 0;
+  border-radius: 40rpx;
+  background: #2196f3;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.filterActionBar .completeButton:active {
+  opacity: 0.85;
+}

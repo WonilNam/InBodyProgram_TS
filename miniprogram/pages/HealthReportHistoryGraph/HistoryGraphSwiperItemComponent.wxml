@@ -1,0 +1,17 @@
+<wxs src="./Resources.wxs" module="res"></wxs>
+
+<view class="history-cards">
+  <view class="history-card" wx:for="{{historyItem}}" wx:key="key">
+    <view class="card-title">{{res.getString('Item_' + item.key, L)}}<text class="card-unit" wx:if="{{item.unit}}"> ({{item.unit}})</text></view>
+    <view class="point-summary-wrap {{selectedByKey[item.key] ? 'selected' : (item.pointCount > 4 ? 'right' : 'center')}}" wx:if="{{item.selectedIndex >= 0}}">
+      <view class="point-summary" id="summary-{{item.key}}" style="left:{{selectedByKey[item.key] ? selectedByKey[item.key].summaryX : 0}}px;">
+        <text class="summary-date">{{selectedByKey[item.key] ? selectedByKey[item.key].date : item.selectedDate}}</text>
+        <text class="summary-value">{{selectedByKey[item.key] ? selectedByKey[item.key].value : item.selectedValue}}{{item.unit}}</text>
+      </view>
+    </view>
+    <canvas type="2d" class="graph" id="graph-{{item.key}}" data-key="{{item.key}}"
+      disable-scroll="true" bindtouchstart="onGraphTouchStart"
+      catchtouchmove="onGraphTouchMove" bindtouchend="onGraphTouchEnd"
+      bindtouchcancel="onGraphTouchEnd"></canvas>
+  </view>
+</view>

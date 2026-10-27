@@ -1,0 +1,27 @@
+
+<view class='inbodydatalist'>  
+  <label wx:for="{{items}}" wx:key="Index" >
+    <view class="item">
+      <view class="btnArea1">
+          <button id='{{item.Datetimes}}' class='bold' plain="true" bindtap='DeleteInBodyDataConfirm'>
+            <image class="btnClose" src="/images/btnCloseGray.png"></image>
+          </button>
+      </view>
+      <view class="btnText1">
+          {{item.DatetimesText}}
+          <view>{{item.CompanyName}}</view>        
+      </view>
+      <view class="btnArea2">
+          <button id='{{item.Datetimes}}' class='bold' plain="true">
+            <image class="btnClose" src="/images/btnPaginationNextGray.png"></image>
+          </button>
+      </view>
+      <view class="btnText2">          
+        <view>体重 : {{item.WT}}kg</view>
+      </view>
+      
+    </view>
+    <view style="clear:both;"></view>
+  </label>
+  
+</view>

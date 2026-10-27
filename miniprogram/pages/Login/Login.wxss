@@ -1,0 +1,16 @@
+/* pages/Login/Login.wxss */
+
+.signup_title{padding:20rpx;text-align:center;border-bottom:1px solid #EDEDED}
+.signup_subtitle{padding:64rpx;text-align:center;background:#EFEFEF;font-size:28rpx;border-top:solid 1px #F3F3F3;border-bottom:solid 1px #F3F3F3;}
+.item_underline{border:2rpx solid #EDEDED;clear:both;}
+.signup_left{ width:250rpx;float:left;padding:20rpx;}
+.signup_right{ width:400rpx;float:left;padding:20rpx;}
+.signup_right1{ width:400rpx;float:left;padding:20rpx;margin-left: -30rpx;}
+.gender_name{padding:28rpx;}
+.contents{font-size:28rpx;width: 750rpx;}
+.font_underline{text-decoration:underline;}
+.item_checkbox{padding:15rpx;}
+.signup_agree{width:750rpx;float:left;padding:20rpx; }
+.signup_privacy{width:750rpx;float:left;padding:20rpx; margin-bottom: 40rpx;}
+.item_complete{padding: 20rpx;}
+.btn_complete{margin: 20rpx;background-color: black;color: white;}

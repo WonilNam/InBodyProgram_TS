@@ -1,0 +1,89 @@
+.wrap {
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    padding-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(33, 35, 48);
+}
+
+.header {
+    width: 90%;
+    height: 12vh;
+    color: white;
+    font-size: 45rpx;
+    line-height: 6vh;
+}
+
+.itemArea {
+    width: 90%;
+    height: 60vh;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    position: relative;
+}
+
+.itemArea .progress_box {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(33, 35, 48);
+    margin-top: 10vh;
+}
+
+.itemArea .progress_bg {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+}
+
+.itemArea .progress_canvas {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+}
+
+
+.foot {
+    width: 100%;
+    height: 26vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.foot .circle {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+}
+
+.foot .cir {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-color: rgb(33, 35, 48);
+    background-color: white;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: 0 10rpx;
+}
+
+.foot .text {
+    width: 90%;
+    font-size: 35rpx;
+    letter-spacing: 1rpx;
+    margin-top: 2vh;
+    line-height: 40rpx;
+    text-align: center;
+    color: white;
+}

@@ -1,0 +1,12 @@
+
+<view class="android-download" wx:if="{{isAndroid}}">
+  <view class="download-title">InBody APP 下载</view>
+  <view class="download-tip">点击复制下载地址，然后在手机浏览器中打开并下载 Android 安装包。</view>
+  <button class="download-button" bindtap="copyDownloadUrl">复制下载地址</button>
+  <text class="download-url" selectable="true">{{apkUrl}}</text>
+</view>
+<view class="page-body" wx:else>
+  <view class="page-section page-section-gap">
+    <web-view src="https://wechat.lookinbody.cn/main/AppDownCHN"></web-view>
+  </view>
+</view>

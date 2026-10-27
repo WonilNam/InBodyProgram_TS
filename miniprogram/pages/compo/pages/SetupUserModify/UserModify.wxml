@@ -1,0 +1,56 @@
+<!--pages/compo/pages/SetupUserModify/UserModify.wxml-->
+<!-- <view class='signup_title'>
+    <label>修改会员信息</label>
+</view> -->
+<view class='contents'>
+<form bindsubmit="formSubmit">
+  <view data-weui-theme="{{theme}}">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}"></image>
+  </button> 
+  <view class='signup_item'>
+  <view class='signup_left'>
+    昵称
+  </view>
+  <view class='signup_right'>
+    <input name="txtName" type='text' maxlength='10' placeholder='请输入昵称' value='{{Name}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+</view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    性别
+  </view>
+  <view class='signup_right1'>
+    <radio-group name="rbGender">
+      <label class='gender_name'><radio value="F" checked='{{Gender_F}}'/>女性</label>
+      <label class='gender_name'><radio value="M" checked='{{Gender_M}}'/>男性</label>
+    </radio-group>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    身高
+  </view>
+  <view class='signup_right'>
+    <input name="txtHeight" type='digit' maxlength='5' placeholder='身高' value='{{Height}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  <view class='signup_item'>
+  <view class='signup_left'>
+    年龄
+  </view>
+  <view class='signup_right'>
+    <input name="txtAge" type='digit' maxlength='2' placeholder='年龄' value='{{Age}}'></input>
+  </view>
+  <view class='item_underline'></view>
+  </view>
+  
+  <view class='item_complete'>
+    <button class='btn_complete' formType="submit">完成</button>
+  </view>
+  </form>
+</view>

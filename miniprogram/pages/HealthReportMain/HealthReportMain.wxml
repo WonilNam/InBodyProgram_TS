@@ -1,0 +1,70 @@
+<wxs src="./Resources.wxs" module="res"></wxs>
+
+<view class="mainheader">
+  <view class="brand-navigation" style="padding-top: {{statusBarHeight}}px;">
+    <view class="brand-navigation-content" style="height: {{navigationHeight}}px; padding-right: {{navigationRight}}px;">
+      <image class="brand-navigation-logo" src="/images/inbody.png" mode="aspectFit" />
+    </view>
+  </view>
+  <!-- <view class="maintophead" style='{{mainheaderView}}'>
+    <view class="btnArea">
+      <view id="inbodytest" class="footerBtn on" bindtap="clicktest">
+        <image src='/images/btn_h_test_on.png'></image>
+        <text>InBody 测试</text>
+      </view>
+      <view id="qrScan" class="footerBtn on" bindtap="moveToMenu">
+        <image src='/images/btn_h_qr_on.png'></image>
+        <text>扫一扫</text>
+      </view>
+      <view id="down" class="footerBtn on" bindtap="clickLink">
+        <image src='/images/btn_h_down_on.png'></image>
+        <text>InBody APP下载</text>
+      </view>
+      <view id="viewMore" class="footerBtn on" bindtap="moveToMenu">
+        <image src='/images/btn_h_View_on.png'></image>
+        <text>查看更多</text>
+      </view>
+    </view>
+ 
+  </view> -->
+  <!-- <view class="Arealine" style='{{mainheaderView}}'></view> -->
+  <view class="mainresultsTap">  
+    <view class="maintapBtn {{ViewType=='InBodyDashboard'?'on':''}}">
+      <button id="inbodyDashboard" plain="true" bindtap="moveTap">{{res.getString('Txt_InBodyDashboard', L)}}</button>  
+    </view>
+    <view class="maintapBtn {{ViewType=='InBodyResult'?'on':''}}">
+      <button id="inbodyResult" plain="true" bindtap="moveTap">{{res.getString('Txt_InBodyResult', L)}}</button>  
+    </view>
+    <view class="maintapBtn {{ViewType=='HistoryGraph'?'on':''}}">
+      <button id="historyGraph" plain="true" bindtap="moveTap">{{res.getString('Txt_HistoryGraph', L)}}</button>
+    </view>
+    <view class="maintapBtn {{ViewType=='InBodyMe'?'on':''}}">
+      <button id="inbodyMe" plain="true" bindtap="moveTap">{{res.getString('Txt_InBodyMe', L)}}</button>  
+    </view>
+  </view>
+  <!-- <view class="mainnoti" wx:if="{{!NotiViewHide}}">
+    <text class="mainlink" bindtap="clickLink">InBody APP下载</text>
+    <image class="mainclose" bindtap="clickLink" src="/images/btnMeal.png"></image>
+  </view> -->
+</view>
+
+<view style="clear:both;"></view>
+<view class="mainbody" style="Height:auto;{{isMainBody}}" >
+  <main-compo class="mainbody" Refresh="{{Refresh}}" wx:if="{{ViewType == 'InBodyDashboard'&& NoData == ''}}" callbackView="InBodyDashboard"/>
+  <view wx:if="{{hasOpenedResult && NoData == ''}}" hidden="{{ViewType != 'InBodyResult'}}">
+    <bargraph-compo class="mainbody" Refresh="{{ResultRefresh}}" callbackView="InBodyResult"/>
+  </view>
+  <view wx:if="{{hasOpenedHistory && NoData == ''}}" hidden="{{ViewType != 'HistoryGraph'}}">
+    <historygraph-compo class="mainbody" Refresh="{{HistoryRefresh}}" callbackView="HistoryGraph"/>
+  </view>
+  <me-compo class="mainbody" Refresh="{{Refresh}}" wx:if="{{ViewType == 'InBodyMe'&& NoData == ''}}" callbackView="InBodyMe"/>
+  <nodata-compo Type="InBody" wx:if="{{NoData == 'NoData'}}"/>
+</view>
+<cover-view class="bottomTap" style="z-index: 50;" wx:if="{{false}}">
+    <cover-view id="inbodyTest" class="maintapBtn {{navType=='InBodyTest'?'on':''}}" bindtap="moveNavTap">
+        <cover-image style="width: 30px; height: 30px;" mode="aspectFill" src="{{reportSrc}}"></cover-image>
+    </cover-view>
+    <cover-view id="inbodyCommunity"  class="maintapBtn {{navType=='InBodyCommunity'?'on':''}}"  bindtap="moveNavTap">
+      <cover-image style="width: 30px; height: 30px;" mode="aspectFill" src="{{communitySrc}}"></cover-image>
+    </cover-view>
+  </cover-view>

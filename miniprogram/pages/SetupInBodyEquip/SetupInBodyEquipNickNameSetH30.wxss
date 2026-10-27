@@ -1,0 +1,18 @@
+.wrap{width:100%;height: 100vh;box-sizing: border-box;display: flex;flex-direction: column;padding-top: 5vh;}
+
+.header{width:100%;height:15vh;font-size:5vw;color: rgb(64, 75, 95);font-weight:bold;display: flex;flex-direction: column;}
+.header .title{width:70%;height:100%;padding-left: 4.5vw;display: flex;line-height: 190%;}
+
+.itemArea {width:100%;height:59vh;position: relative;margin-top: 8vh;}
+.itemArea .imageArea image{width:100%;height:30vh;}
+.itemArea  .txt{width:200rpx;height:100rpx;position: absolute;top: 100rpx;left: 275rpx;z-index: 1;color: white;text-align: center;line-height: 100rpx;font-size: 40rpx;}
+.itemArea .textArea{width:750rpx;height:10vh;margin-top: 15rpx;}
+.itemArea .textArea .top {font-size:4vw;height:50%;text-align: center;color: rgb(41, 54, 87);}
+.itemArea .textArea .bottom {font-size:4vw;height:50%;text-align: center;color: rgb(41, 54, 87);}
+.itemArea .inputBody{width:100%;height: 15vh;display: flex;flex-direction: column;align-items: center;justify-content: flex-end;}
+.itemArea .inputArea{width:90%;border-radius: 15rpx;border:solid 1rpx gray;}
+.itemArea input{width:90%;height:8vh;font-size:4vw;letter-spacing: 0.5vw;margin-left: 5vw;line-height: 8vh;}
+.itemArea .tilt{width:90%;height:6vh;font-size:3vw;color: red;padding-left: 5vw;box-sizing: border-box;line-height: 6vh;}
+
+.foot{height: 13vh;}
+.btnSet{width:90%;background-color:rgb(54, 62, 81);color:white;font-size:5vw;border-radius: 15rpx;}

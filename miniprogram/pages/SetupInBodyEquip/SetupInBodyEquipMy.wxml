@@ -1,0 +1,28 @@
+<view class="wrap">
+  <view class="header">
+    <view class="button" style="visibility:hidden;float:left" bindtap="comfirmSetupMain">完成</view>
+    <view class="title">同步最新</view>
+    <button class="button" plain="true" bindtap="comfirmSetupMain">完成</button>
+  </view>
+  <view class="help">
+  设置成功后，请点击“完成”
+  </view>
+  <view class="itemArea">
+    <view class="item" id="{{item.id}}" bindtap="selectEquip" wx:for="{{listItem}}" wx:key="id">
+      <view class="textArea">
+        <view class="top"><text>{{item.title}}</text></view>
+        <view class="mid"><text>{{item.sub}}</text></view>
+        <view class="bottom">
+         <!-- <button plain="true" bindtap="setNewEquip">同步最新</button>-->
+          <button plain="true" bindtap="setDeleteEquip">{{item.btnText}}</button>
+        </view>
+      </view>
+      <view class="imageArea">
+        <image src="/images/{{item.img}}"></image>
+      </view>
+    </view>
+  </view>
+ <!-- <view class="body">
+    <button class="btnSet" hidden="{{IsHideButton}}" bindtap="setEquip">添加设备</button>
+  </view>-->
+</view>

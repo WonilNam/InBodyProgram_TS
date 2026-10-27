@@ -1,0 +1,20 @@
+<view class="measureMask" wx:if="{{active}}">
+  <view class="measureCard">
+    <view class="deviceBadge">InBody {{deviceType}}</view>
+    <view class="stateTitle">{{stateText}}</view>
+
+    <view class="weightBox">
+      <view class="weightValue">{{realtimeWeightText}}</view>
+      <view class="weightUnit">kg</view>
+    </view>
+
+    <view class="progressTrack" wx:if="{{progress > 0}}">
+      <view class="progressFill" style="width: {{progress}}%;"></view>
+    </view>
+
+    <view class="errorBanner" wx:if="{{errorMessage}}">{{errorMessage}}</view>
+
+    <view class="cancelBtn" wx:if="{{uploadStatus == 'failed'}}" bindtap="onRetryTap">重新保存报告</view>
+    <view class="cancelBtn" bindtap="onCancelTap">{{closeText}}</view>
+  </view>
+</view>

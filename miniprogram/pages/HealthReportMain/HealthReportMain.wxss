@@ -1,0 +1,28 @@
+
+.maintophead{height:100rpx; margin-top: 15rpx; margin-bottom: 15rpx; /*position:fixed;*/ width:100%; bottom:10rpx; /*z-index:10*;*/ vertical-align:middle; background-color:white;}
+.maintophead .btnArea{margin-top:6rpx; /*margin-left:100rpx;*/ height:86rpx; vertical-align: middle;text-align:center;}
+.maintophead .btnArea .footerBtn {height:70rpx; width:134rpx; margin:8rpx 30rpx 0 0; display:inline-block; vertical-align: middle;text-align:center;}
+
+.maintophead .btnArea .footerBtn image{height:72rpx;width:72rpx;display:block;margin-left:36rpx;}
+.maintophead .btnArea .footerBtn text{height:24rpx; line-height: 24rpx; font-size:18rpx;display:block;color:#1f2535; font-family:Arial, Helvetica, sans-serif;}
+.maintophead .btnArea .footerBtn.on text{color:black !important;font-family:Arial, Helvetica, sans-serif;}
+
+.mainheader{ width:100%; z-index:50;background-color:white;}
+.mainheader .mainresultsTap .maintapBtn {float:left;width:25%;}
+.mainheader .mainresultsTap .maintapBtn.on {border-bottom:2px solid black;}
+.mainheader .mainresultsTap .maintapBtn button {border:none;color:#9E9E9E;font-family:Arial, Helvetica, sans-serif; font-size: 30rpx;}
+.mainheader .mainresultsTap .maintapBtn.on button {border:none;color:#1f2535;background-color:white;font-family:Arial, Helvetica, sans-serif; }
+
+.mainheader .mainnoti {height:80rpx;width:750rpx;text-align:center;display:table;}
+.mainheader .mainnoti .mainlink {vertical-align:top;color:#60d0ca;font-size:24rpx;text-decoration:underline;font-weight: bold;/*display:table-cell;*/display:inline-block;padding-top:24rpx;}
+.mainheader .mainnoti .mainclose {width:48rpx;height:48rpx;padding:16rpx;/*display:table-cell;*/}
+
+.mainbody {height:calc(100%); width:750rpx; padding-bottom: 0; overflow-y: hidden;overflow-x: hidden;}
+.Arealine{height: 1px; background-color: rgb(238,238,238);display:block; }
+.fs15 { font-size: 15rpx; }
+
+.bottomTap { display:flex; position: fixed; bottom: 0px; width: 100%; height: 120rpx; line-height: 120rpx; border-top-left-radius: 30rpx; border-top-right-radius: 30rpx; box-shadow: 5px 10px 20px 5px #333333;  background-color: white; z-index: 200; opacity: 1;}
+.maintapBtn { display: flex; flex:1; justify-content: center; align-items: center;}
+.brand-navigation { background: #fff; }
+.brand-navigation-content { box-sizing: border-box; display: flex; align-items: center; padding-left: 32rpx; }
+.brand-navigation-logo { display: block; flex-shrink: 1; width: 156rpx; max-width: 100%; height: 48rpx; filter: brightness(0); }

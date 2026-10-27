@@ -1,0 +1,2 @@
+.modal{width:750rpx;height:100%;background-color:black;opacity: 0.15;z-index:100}
+.popup{position:absolute; left:48rpx; top:280rpx; width:650rpx;height:510rpx/*420*/; background-color:#f9f7fa;z-index:105;border-radius: 10rpx; }

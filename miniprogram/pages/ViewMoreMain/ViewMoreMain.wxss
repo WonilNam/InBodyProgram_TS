@@ -1,0 +1,68 @@
+.body {
+  width: 100%;
+}
+.body .title {
+  background-color: #f2f2f2;
+  width: 100%;
+  height: 10rpx;
+  font-size: 28rpx;
+  padding: 10rpx 46rpx 10rpx 46rpx;
+  font-weight: bold;
+}
+.body .content {
+  width: 686rpx;
+  height: 44rpx;
+  font-size: 28rpx;
+  padding: 32rpx 16rpx 28rpx 48rpx;
+  border-bottom: solid 1px #f2f2f2;
+}
+.contentText {
+  float: left;
+  width: 500rpx;
+}
+.contentArrow {
+  float: right;
+  width: 48rpx;
+  height: 46rpx;
+}
+
+.footer {
+  height: 96rpx;
+  position: fixed;
+  width: 100%;
+  bottom: 0rpx;
+  z-index: 10;
+  vertical-align: middle;
+  background-color: #fafafa;
+}
+.footer .btnArea {
+  margin-top: 6rpx;
+  margin-left: 100rpx;
+  height: 86rpx;
+  vertical-align: middle;
+  text-align: center;
+}
+.footer .btnArea .footerBtn {
+  height: 70rpx;
+  width: 110rpx;
+  margin: 8rpx 100rpx 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.footerIcon {
+  height: 36rpx;
+  width: 36rpx;
+  display: block;
+  margin-left: 36rpx;
+}
+.footerText {
+  height: 24rpx;
+  font-size: 18rpx;
+  display: block;
+  color: #adadad;
+}
+.footer .btnArea .footerBtn.on .footerText {
+  color: #b42f1c !important;
+}

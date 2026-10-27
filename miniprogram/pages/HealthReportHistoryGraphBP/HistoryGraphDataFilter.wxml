@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="titleBar">
+    <button class="btnComplete" style="float:left;color:white;" plain="true">取消</button>
+    <text class="title">选择数据</text>
+    <button class="btnComplete" plain="true" bindtap="setFilterChange">完成</button>
+  </view>
+  <view style="height:44px;"></view>
+  <view class="filterArea">
+    <view class="filter" bindtap="setDateChange">
+      <text class="left">期间</text>
+       <image src="/images/btnPaginationNextBlack.png" class="icon" mode="center" style='display:inline-block;float:right;'></image>
+       <text class="right">{{dateRangeText}}</text>
+    </view>
+  </view>
+  <view class="dataList">
+    <view class="listBarArea">
+      <view class="left">
+        <text class="txt">目录(总 {{listData.length}}个)</text>
+      </view>
+      <view class="right">
+        <button class="btn clear" bindtap="checkboxAllUncheck">全部取消</button>
+        <button class="btn all" bindtap="checkboxAllCheck">全选</button>
+      </view>
+    </view>
+    <view class="listCountArea">
+      <text class="listcount">已选{{checkedData.length}}个</text>
+    </view>
+    <view class="list" >
+      <checkbox-group bindchange="setItemCheck" >
+      <label class="listItem" wx:for="{{listData}}" wx:key="key" >
+        <view class="dataLeft">
+          <checkbox checked="{{item.IsChecked}}" id="{{item.key}}" value="{{item.Datetimes}}"></checkbox>
+        </view>
+        <view class="dataMid">
+          <view class="top">{{item.DateText}}</view>
+        </view>
+        <view class="dataRight">
+          <view class="top">血压: {{item.SBP}} / {{item.DBP}}</view>
+        </view>
+        <view style="clear:both;"></view>
+      </label>
+      </checkbox-group>
+    </view>
+  </view>
+</view>

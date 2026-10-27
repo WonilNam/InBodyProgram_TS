@@ -1,0 +1,18 @@
+.wrap{width:100%;height:100%;}
+
+.header{width:750rpx;height:96rpx;font-size:28rpx;}
+.header .title{float:left;width:550rpx;font-size:32rpx;font-weight:bold;text-align:center;line-height: 96rpx;}
+.header .button{width:100rpx;float:right;border:0;height:96rpx;font-size:28rpx;line-height:92rpx;padding:0;color:black;}
+
+.help{padding:64rpx;text-align:center;background:#EFEFEF;font-size:28rpx;border-top:solid 1px #F3F3F3;border-bottom:solid 1px #F3F3F3;}
+
+.itemArea .item{width:750rpx;height:240rpx;border-bottom:solid 1px #F3F3F3;}
+.itemArea .item .textArea{width:530rpx;height:240rpx;float:left;}
+.itemArea .item .textArea .top {display:block;font-size:32rpx;height:80rpx;padding-left:32rpx;font-weight:bold;line-height:80rpx;}
+.itemArea .item .textArea .mid {display:block;font-size:28rpx;height:66rpx;padding-left:32rpx;}
+.itemArea .item .textArea .bottom {padding-left:28rpx;height:66rpx;}
+.itemArea .item .textArea .bottom button {font-size:24rpx;margin-right:16rpx;display:inline-block;border:solid 1px #dedede;}
+.itemArea .item .imageArea {padding-top:16rpx;float:right;}
+.itemArea .item .imageArea image{width:220rpx;height:220rpx;}
+
+.btnSet{width:600rpx;margin-top:48rpx;background-color:black;color:white;font-size:28rpx;}

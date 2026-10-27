@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/HealthReportMain/HealthReportMain",
+    "pages/ReportShare/ReportShare",
+    "pages/HealthReportHistoryGraph/HistoryGraphDataFilter",
+    "pages/HealthReportHistoryGraph/HistoryGraphDataFilterDate",
+    "pages/HealthReportHistoryGraph/HistoryGraphDataFilterEquip",
+    "pages/HealthReportHistoryGraph/HistoryGraphMetricSettings",
+    "pages/HealthReportBarGraph/WebViewInBodyItemHelp",
+    "pages/HealthReportBarGraph/WebViewInBodyResultsSheet",
+    "pages/ViewMoreMain/ViewMoreMain",
+    "pages/HealthReportHistoryGraphBP/HealthReportHistoryGraphBP",
+    "pages/HealthReportHistoryGraphBP/HistoryGraphDataFilter",
+    "pages/HealthReportHistoryGraphBP/HistoryGraphDataFilterDate",
+
+    "pages/SetupInBodyDataManage/InBodyDataManage",
+
+    "pages/ViewMoreMain/WebViewInBodyAppDown",
+    "pages/InBodyTestMain/InBodyTestProfile",
+    "pages/HealthReportBarGraph/inbodyDataSelect",
+
+    "pages/Login/Login",
+    "pages/Login/PrivatePolicy",
+    "pages/Login/GetTelHPComponent",
+    "pages/Login/InputTelHPComponent"
+  ],
+
+  "subpackages": [
+    {
+      "root": "pages/compo",
+      "pages": [
+        "pages/InBodyCommunity/InBodyCommunity",
+        "pages/SetupUserModify/UserModify"
+      ]
+    },
+
+    {
+      "root": "pages/SetupInBodyEquip",
+      "pages": [
+        "SetupInBodyEquipNickNameH30",
+        "SetupInBodyEquipNickNameSetH30",
+        "SetupInBodyEquipWifiH30",
+        "SetupInBodyEquipWifiPasswordH30",
+        "SetupInBodyEquipInitializeH30",
+        "SetupInBodyEquipTestH30",
+        "SetupInBodyEquipTutorialH30",
+        "SetupInBodyEquipWifiSearchH30",
+        "SetupInBodyEquipSettingH30",
+        "SetupInBodyEquipConnectedH30",
+        "SetupInBodyEquipList",
+        "SetupInBodyEquipDetail",
+        "SetupInBodyEquipMy",
+        "SetupInBodyEquipConnectH30"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "InBody",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "default"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取您的地理位置信息"
+    }
+  },
+  "lazyCodeLoading": "requiredComponents"
+}

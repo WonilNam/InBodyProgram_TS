@@ -1,0 +1,46 @@
+<view class="body">
+  <view class="title"></view>
+  <view class="content" id="UserModify" bindtap="SetupMoveMenu">会员信息<image class="contentArrow" src="/images/btnPaginationNextGray.png"></image>
+  </view>
+
+  <view class="title"></view>
+  <view class="content" id="InBodyEquip" bindtap="SetupMoveMenu">设置产品<image class="contentArrow" src="/images/btnPaginationNextGray.png"></image>
+  </view>
+
+  <view class="title"></view>
+  <view class="content" id="InBodyDataManage" bindtap="SetupMoveMenu">管理InBody结果<image class="contentArrow" src="/images/btnPaginationNextGray.png"></image>
+  </view>
+
+  <!-- <view class="title">APP下载</view>
+  <view class="content" id="AppDown" bindtap="SetupMoveMenu">InBody APP下载<image class="contentArrow" src="/images/btnPaginationNextGray.png"></image>
+  </view> -->
+  <!-- <view class="content">자주 묻는 질문(FAQ)<image src="/images/btnPaginationNextGray.png"></image></view> -->
+  <!-- <view class="content">고객지원센터<image src="/images/btnPaginationNextGray.png"></image></view> -->
+  <view wx:if="{{isLogin}}">
+    <view class="title"></view>
+
+    <view class="content" bindtap="bindLogout">退出<image class="contentArrow" src="/images/btnPaginationNextGray.png"></image>
+    </view>
+
+    <view class="title"></view>
+    <view class="content" bindtap="bindLeaveAccount">账户注销<image class="contentArrow" src="/images/btnPaginationNextGray.png"></image>
+    </view>
+  </view>
+</view>
+<view style="height:100rpx;"></view>
+<!-- <view class="footer">
+  <view class="btnArea">
+    <view id="healthReport" class="footerBtn" bindtap="moveToMenu">
+      <image class="footerIcon" src='/images/{{BtnIcon_HealthReport}}.png'></image>
+      <text class="footerText">健身报告</text>
+    </view> -->
+    <!-- <view id="qrScan" class="footerBtn" bindtap="moveToMenu">
+      <image class="footerIcon" src='/images/{{BtnIcon_QRScan}}.png'></image>
+      <text class="footerText">QR扫描</text>
+    </view> -->
+    <!-- <view id="me" class="footerBtn on">
+      <image class="footerIcon" src='/images/{{BtnIcon_Me}}.png'></image>
+      <text class="footerText">我</text>
+    </view>
+  </view>
+</view> -->

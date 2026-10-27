@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "measure-modal": "/components/measure-modal/measure-modal",
+    "dialog": "../../components/dialog"
+  }
+}

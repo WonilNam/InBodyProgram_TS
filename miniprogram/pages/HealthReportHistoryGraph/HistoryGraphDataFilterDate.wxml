@@ -1,0 +1,16 @@
+<view class="title">选择开始日期</view>
+<picker-view wx:if="{{dateArray.length > 0}}" indicator-style="height: 50px;" class="picker" value="{{startDate}}" bindchange="setPickerStartDate" bindpickstart="onPickStart" bindpickend="onPickEnd" immediate-change="{{true}}">
+  <picker-view-column>
+    <view wx:for="{{dateArray}}" wx:key="date" class="picker-item">{{item.dateText}}</view>
+  </picker-view-column>
+</picker-view>
+<view class="title">选择结束日期</view>
+<picker-view wx:if="{{dateArray.length > 0}}" indicator-style="height: 50px;" class="picker" value="{{endDate}}" bindchange="setPickerEndDate" bindpickstart="onPickStart" bindpickend="onPickEnd" immediate-change="{{true}}">
+  <picker-view-column>
+    <view wx:for="{{dateArray}}" wx:key="date" class="picker-item">{{item.dateText}}</view>
+  </picker-view-column>
+</picker-view>
+<view class="picker-spacer"></view>
+<view class="filterActionBar">
+  <button class="completeButton" bindtap="confirmDate">确定</button>
+</view>

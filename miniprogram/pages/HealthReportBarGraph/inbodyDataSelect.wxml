@@ -1,0 +1,25 @@
+<view class='selectdata'>
+  <button style='float:left;width:20%;border:none;' class='bold' plain="true" bindtap='ViewBarGraph_Cancel'>取消</button>
+  <button style='float:right;width:20%;border:none;' class='bold' bindtap='ViewBarGraph_Select' plain="true">应用</button>
+  <button style='float:right;width:60%;border:none;' plain="true">选择数据</button>
+</view>
+<view style='height:96rpx;'></view>
+<view class='inbodydatalist'>
+  <radio-group class="radio-group" bindchange="ChangeRadio">
+    <label class="radio" wx:for="{{items}}" wx:key="Index">
+      <view style='font-size:15px;padding:15px;clear:both;'>
+        <view style='float:left;'>
+            <radio value="{{item.Index}}" checked="{{item.checked}}"/>
+        </view>
+        <view style='float:left;'>
+            {{item.DatetimesText}} 
+            <view style='font-size:12px;'>InBody{{( item.Equip=='H20'?'Dial': item.Equip )}} <text wx:if="{{item.CustomerName != null && item.CustomerName != ''}}">-</text> {{item.CustomerName}}</view>      
+        </view>
+        <view style='float:right;'>          
+          <view>体重 : {{item.WT}}kg</view>
+          <view style='font-size:12px;'>体脂百分比 : {{item.PBF}}%</view>
+        </view>
+      </view>
+    </label>
+  </radio-group>
+</view>

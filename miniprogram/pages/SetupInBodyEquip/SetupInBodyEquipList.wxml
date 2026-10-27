@@ -1,0 +1,27 @@
+<view class="wrap">
+  <view class="title">设置产品</view>
+  <view class="help">
+    在使用小程序前，\n请选择蓝牙设备。
+  </view>
+  <view class="itemArea">
+    <view class="item" id="{{item.id}}" bindtap="selectEquip" wx:for="{{listItem}}" wx:key="id">
+      <view class="textArea">
+        <text class="top">{{item.title}}</text>
+        <text class="bottom">{{item.sub}}</text>
+      </view>
+      <view class="imageArea">
+        <image src="/images/{{item.img}}"></image>
+      </view>
+      
+    </view>
+  </view>
+</view>
+<dialog
+  status="{{showLoginDialog}}"
+  title="登录提示"
+  content="设置产品需要授权登录，请先登录后继续"
+  confirmText="去登录"
+  cancelText="取消"
+  bind:confirm="handleConfirmLogin"
+  bind:cancel="handleCancelLogin"
+></dialog>

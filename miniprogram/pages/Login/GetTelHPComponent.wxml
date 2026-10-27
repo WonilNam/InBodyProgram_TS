@@ -1,0 +1,34 @@
+<page-meta>
+<navigation-bar title="登录"></navigation-bar>
+</page-meta>
+<view class="wrap">
+<view class="imageArea" style="height: 50vh;width: 100%;">
+  <view style="background-color:white;height:100%;display:flex;align-items: center;width: 100%;justify-content: center;">
+    <image src="/images/inbody.png" mode="widthFix" style="width:70%;height:35vh"/>
+  </view>
+</view>
+
+
+<view class="foot" style="height: 50vh;width:100%;box-sizing: border-box;">
+<view style=" width: 90%;height: 104rpx;margin: 0 auto;"   >
+<button  class="btnLogin" style="color: white;background-color: rgb(181,9,55);"   open-type="getPhoneNumber"  bindgetphonenumber="getPhoneNumber"  wx:if="{{isAgreed}}" >手机号一键登录</button>
+<button  class="btnLogin" style="color: white;background-color: rgb(181,9,55);"   bindtap="checkAgreement"  wx:if="{{!isAgreed}}" >手机号一键登录</button>
+</view>
+<view style=" width: 90%;height: 104rpx; margin: 0 auto; margin-top: 2.5vh;border-radius: 15rpx;">
+  <button class="btnLogin" style="color: black; " bindtap="checkAgreement" data-manual="manual"  >其他手机号登录</button>
+</view>
+<view style="margin-top: 2.5vh; text-align: center;">
+  <text class="rejectLink" bindtap="onRejectLogin">暂不登录</text>
+</view>
+<view style="margin-top: 2vh;height: 100rpx;font-size:25rpx;">
+  <view style="padding-top:15rpx ;padding-left: 90rpx;">
+ <checkbox style="transform:scale(0.65);color: rgb(181,9,55);vertical-align: middle;"  bindtap="checkBoxChange"></checkbox>
+ <view style="vertical-align: middle;display: inline;">
+  <text style="display: inline;">我已阅读并同意</text>
+  <navigator style="display: inline; color: rgb(181,9,55);text-decoration-line: underline; " url="/pages/Login/PrivatePolicy" >隐私政策与个人信息处理方针</navigator>
+</view>
+</view>
+</view>
+ 
+</view>
+</view>

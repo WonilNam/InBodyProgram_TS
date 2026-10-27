@@ -1,0 +1,25 @@
+var Resources = {
+  ko: {
+    Txt_InBodyDashboard: '대시보드드',
+    Txt_InBodyResult: '인바디결과',
+    Txt_HistoryGraph: '변화그래프',
+    Txt_InBodyMe: '나',
+    Txt_InBody: '인바디',
+  },
+  cn: {
+    Txt_InBodyDashboard: '主页',
+    Txt_InBodyResult: '详细',
+    Txt_HistoryGraph: '变化',
+    Txt_InBodyMe: '我',
+    Txt_InBody: 'InBody',
+  }
+};
+
+var getResources = function (resID, L) {
+  var lang = L;
+  return Resources[lang][resID];
+};
+
+module.exports = {
+  getString: getResources
+}

@@ -1,0 +1,6 @@
+
+<view class="page-body">
+  <view class="page-section page-section-gap">
+    <web-view  bindload='bindload'  src="https://wechat.lookinbody.cn/inbody_v3/InBodyItemHelpView?Language=cn"></web-view>
+  </view>
+</view>

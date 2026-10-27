@@ -1,0 +1,16 @@
+<view class="wrap">
+  <view class="header">
+    <view class="title">创建一个显示在</view>
+ <view class="text">Dial上的昵称吧;)</view>
+  </view>
+ 
+  <view class="itemArea"> 
+      <view class="imageArea">
+        <image src="{{imgSrc}}"></image>
+    </view>
+
+  </view>
+ <view class="foot">
+    <button class="btnSet" bindtap="addNickName" >添加</button>
+  </view>
+</view>

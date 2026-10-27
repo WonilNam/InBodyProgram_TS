@@ -1,0 +1,29 @@
+
+.signup_title{padding:10rpx;text-align:center;border-bottom:1px solid #EDEDED;margin-bottom:20rpx;}
+.item_underline{border:2rpx solid #EDEDED;clear:both;}
+.signup_left{ width:250rpx;float:left;padding:20rpx;}
+.signup_right{ width:400rpx;float:left;padding:20rpx;}
+.signup_right1{ width:400rpx;float:left;padding:20rpx;margin-left: -30rpx;}
+.gender_name{padding:28rpx;}
+.contents{font-size:28rpx;width: 750rpx;}
+.font_underline{text-decoration:underline;}
+.item_checkbox{padding:15rpx;}
+.item_complete{padding: 20rpx;}
+.btn_complete{margin: 20rpx;background-color: black;color: white;}
+.avatar-wrapper {
+  padding: 0;
+  width: 56px !important;
+  border-radius: 8px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+.container {
+  display: flex;
+}

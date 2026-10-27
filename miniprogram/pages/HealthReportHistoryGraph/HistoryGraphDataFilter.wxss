@@ -1,0 +1,384 @@
+.history-filter-page {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: calc(132rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #fff;
+  color: #3e4b65;
+}
+
+.section-label {
+  display: block;
+  color: #687386;
+  font-size: 26rpx;
+}
+
+.filter-summary {
+  padding: 44rpx 48rpx 20rpx;
+}
+
+.summary-value {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+  color: #3e4b65;
+  font-size: 32rpx;
+  font-weight: 600;
+  min-height: 48rpx;
+}
+
+.edit-icon {
+  margin-left: 14rpx;
+  color: #a7afbb;
+  font-size: 28rpx;
+}
+
+.equipment-section {
+  padding: 32rpx 48rpx 0;
+}
+
+.equipment-tabs {
+  width: 100%;
+  margin-top: 22rpx;
+}
+
+.equipment-tab-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.equipment-tab {
+  flex: none;
+  margin: 0 14rpx 14rpx 0;
+  padding: 0 28rpx;
+  height: 60rpx;
+  line-height: 58rpx;
+  border: 2rpx solid #e6e8ec;
+  border-radius: 34rpx;
+  box-sizing: border-box;
+  color: #556174;
+  background: #fff;
+  font-size: 24rpx;
+}
+
+.equipment-tab.active {
+  border-color: #8e5260;
+  color: #8e5260;
+  background: #fffafb;
+  font-weight: 600;
+}
+
+.filter-divider {
+  height: 16rpx;
+  margin: 48rpx 32rpx 24rpx;
+  background: #f2f3f6;
+}
+
+.list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 40rpx 18rpx;
+}
+
+.total-count {
+  color: #3e4b65;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.select-all {
+  display: flex;
+  align-items: center;
+  color: #202633;
+  font-size: 26rpx;
+}
+
+.filter-checkbox {
+  position: relative;
+  flex: none;
+  width: 34rpx;
+  height: 34rpx;
+  border: 2rpx solid #cfd4dd;
+  border-radius: 7rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.filter-checkbox.checked {
+  border-color: #3e4b65;
+  background: #3e4b65;
+}
+
+.checkmark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16rpx;
+  height: 9rpx;
+  border-left: 4rpx solid #fff;
+  border-bottom: 4rpx solid #fff;
+  box-sizing: border-box;
+  transform: translate(-50%, -68%) rotate(-45deg);
+}
+
+.select-all .filter-checkbox {
+  width: 42rpx;
+  height: 42rpx;
+  margin-right: 12rpx;
+}
+
+.list {
+  clear: both;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  min-height: 124rpx;
+  padding: 12rpx 40rpx;
+  border-bottom: 1rpx solid #f0f1f3;
+  box-sizing: border-box;
+}
+
+.dataLeft {
+  display: flex;
+  align-items: center;
+  flex: none;
+  width: 72rpx;
+}
+
+.dataLeft .filter-checkbox {
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.dataMid {
+  flex: 1;
+  min-width: 0;
+  padding-right: 12rpx;
+}
+
+.dataMid .top,
+.dataRight .top {
+  color: #202633;
+  font-size: 27rpx;
+  line-height: 1.45;
+}
+
+.dataMid .bottom,
+.dataRight .bottom {
+  color: #9099a6;
+  font-size: 21rpx;
+  line-height: 1.45;
+}
+
+.dataRight {
+  flex: none;
+  width: 230rpx;
+  text-align: right;
+}
+
+.filterActionBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 16rpx 32rpx calc(28rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.filterActionBar .completeButton {
+  width: 92%;
+  height: 96rpx;
+  line-height: 96rpx;
+  border: 0;
+  border-radius: 16rpx;
+  background: #3e4b65;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.filterActionBar .completeButton::after {
+  border: 0;
+}
+
+.date-sheet-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, .48);
+}
+
+.date-sheet-backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.date-sheet {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  padding: 48rpx 36rpx 8.5vh;
+  border-radius: 32rpx 32rpx 0 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.date-sheet-title {
+  display: block;
+  margin: 8rpx 8rpx 72rpx;
+  color: #202633;
+  font-size: 42rpx;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.date-range-cards,
+.date-picker-labels,
+.date-pickers,
+.date-sheet-actions {
+  display: flex;
+}
+
+.date-range-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  height: 136rpx;
+  padding: 0 28rpx;
+  border: 2rpx solid #e5e7eb;
+  border-radius: 20rpx;
+  color: #7b8491;
+  font-size: 26rpx;
+  box-sizing: border-box;
+}
+
+.date-range-card + .date-range-card,
+.date-picker-labels text + text,
+.date-picker + .date-picker,
+.date-sheet-actions button + button {
+  margin-left: 20rpx;
+}
+
+.date-range-card.start-card {
+  border-color: #e5e7eb;
+}
+
+.date-range-card.active {
+  border-width: 3rpx;
+  border-color: #7c8995;
+}
+
+.date-range-value {
+  overflow: hidden;
+  margin-top: 8rpx;
+  color: #202633;
+  font-size: 36rpx;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date-picker-labels {
+  margin-top: 36rpx;
+  color: #687386;
+  font-size: 24rpx;
+}
+
+.date-picker-labels text,
+.date-picker {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.date-pickers {
+  margin-top: auto;
+  margin-bottom: 40rpx;
+}
+
+.date-picker {
+  width: 100%;
+  height: 360rpx;
+}
+
+.date-picker-item {
+  height: 50px;
+  line-height: 50px;
+  color: #202633;
+  font-size: 24px;
+  box-sizing: border-box;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: transform .12s ease, opacity .12s ease;
+}
+
+.date-picker-item.wheel-center {
+  transform: perspective(420px) rotateX(0deg) scale(1.08);
+  opacity: 1;
+}
+
+.date-picker-item.wheel-before {
+  transform: perspective(420px) rotateX(-28deg) scale(.88);
+  opacity: .58;
+}
+
+.date-picker-item.wheel-after {
+  transform: perspective(420px) rotateX(28deg) scale(.88);
+  opacity: .58;
+}
+
+.date-picker-item.wheel-before-far {
+  transform: perspective(420px) rotateX(-48deg) scale(.72);
+  opacity: .24;
+}
+
+.date-picker-item.wheel-after-far {
+  transform: perspective(420px) rotateX(48deg) scale(.72);
+  opacity: .24;
+}
+
+.date-sheet-actions {
+  margin-top: 0;
+}
+
+.date-sheet-actions button {
+  flex: 1;
+  height: 112rpx;
+  line-height: 112rpx;
+  border: 0;
+  border-radius: 22rpx;
+  font-size: 30rpx;
+}
+
+.date-sheet-actions button::after {
+  border: 0;
+}
+
+.date-close-button {
+  background: #f1f2f5;
+  color: #3e4b65;
+}
+
+.date-next-button {
+  background: #3e4b65;
+  color: #fff;
+}

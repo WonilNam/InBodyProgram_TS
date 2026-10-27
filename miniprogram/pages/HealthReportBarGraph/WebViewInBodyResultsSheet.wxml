@@ -1,0 +1,14 @@
+<view style="display: flex;align-items:center;">
+  <movable-area style="width:100vw; height:100vh" scale-area>
+    <movable-view style="width:800rpx; height:1200rpx" direction="all" scale scale-min="0.5" scale-max="3" scale-value="1">
+      <image src="{{imgurl}}" mode='widthFix' style= "width:750rpx;"></image>
+    </movable-view>
+  </movable-area>
+
+  <view class="floatBtn" bindtap="showdialog">
+    <image src="/images/btn_h_down_on.png"></image>
+  </view>
+  
+  <dialog title="下载图片" status="{{status}}" bind:cancel='handlecancel' bind:confirm="saveImg" content='确定下载图片吗？' >
+  </dialog>
+</view>

@@ -1,0 +1,141 @@
+<view class='dashbord_body'>
+  <view class="home-help-card" wx:if="{{isGuest}}" bindtap="openLogin">
+    <text class="home-help-title">登录后查看您的测量记录</text>
+    <text>去登录 ›</text>
+  </view>
+  <view class="body_index">
+    <view class="dashboard-heading">
+      <text class="dashboard-heading-title">InBody测试概要</text>
+      <view class="dashboard-display-settings" bindtap="openDisplaySettings"><image class="dashboard-settings-icon" src="/images/history_settings.svg" /><text>显示项设置</text></view>
+    </view>
+
+    <view class="flex-wrp dashdata">
+      <view wx:for="{{summaryCards}}" wx:key="key" id="{{item.id}}" class="flex-item main-data {{viewType == item.id ? 'componentOn' : ''}}">
+        <view class="metric-card-content" id="{{item.id}}" bindtap="onClickComponent">
+          <view class="title">{{item.name}} <text class="dashboard_unit" wx:if="{{item.unit}}">({{item.unit}})</text></view>
+          <view class="dashboard_value"><text class="front">{{item.whole}}</text><text wx:if="{{item.fraction}}" class="right">.{{item.fraction}}</text></view>
+          <view class="itemBar metric-status-{{item.tone}}"><text style="color: white;">{{item.status}}</text></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- <view style="position: relative;">
+  </view> -->
+    <!-- <scroll-view scroll-x="true" bindscroll="scrollCanvas"> -->
+      <view class="canvas_container" wx:if="{{!isGuest}}" style="transform: translateX(-{{canvasLen}}px);">
+        <view class="trend-selection" wx:if="{{trendSelection}}" style="left: {{trendSelection.left}}px; width: {{trendSelection.width}}px;"><text class="trend-selection-date">{{trendSelection.date}}</text><text class="trend-selection-value">{{trendSelection.value}}</text></view>
+      <!-- touchcanvas -->
+        <canvas type="2d" id="lineCanvas" class="canvas" bindtouchstart="touchcanvas" hidden="{{ canvasHidden }}" bindtouchmove="touchmove" bindtouchend="touchend"></canvas>
+      </view>
+    <!-- </scroll-view> -->
+    <view class="flex-just">
+      <view class="share-result" bindtap="openReportShare">
+        <view class="left">
+          <image class="quickActionIcon home-share-icon" src="../../images/share_report_blue.svg" mode="aspectFit"></image>
+        </view>
+        <view class="right">
+          <text>分享</text>
+        </view>
+      </view>
+      <view class="scan-result add-result" bindtap="openAddResult">
+        <text class="add-result-plus">＋</text><text>添加结果</text>
+      </view>
+    </view>
+    <view class="home-help-card" bindtap="openInBodyHelp">
+      <text class="home-help-icon">💡</text>
+      <text class="home-help-title">'测试姿势' 'InBody帮助'详细查看</text>
+    </view>
+    <view class="result-sheet-mask" wx:if="{{showAddResult}}" bindtap="closeAddResult"></view>
+    <view class="result-sheet" hidden="{{!showAddResult}}">
+      <view class="result-sheet-close" bindtap="closeAddResult"><text>×</text></view>
+      <view class="result-sheet-heading">如何记录测量结果？</view>
+      <view class="result-sheet-description">{{testEquip == 'NotEquip' ? '没有可以进行InBody测试的设备' : '使用已添加的InBody设备进行测试'}}</view>
+      <view class="result-sheet-option" bindtap="scanResult"><image class="result-sheet-icon" src="/images/icon_scan.png" /><text>扫描报告纸QR码</text></view>
+      <view class="result-sheet-option bluetooth" wx:if="{{testEquip != 'NotEquip'}}">
+        <view class="notEquip" bindtap="showHint">
+          <view class="left"> 
+          <image class="notEquipIcon" src="/images/btnInbodydialWhite.png"></image>
+          </view>
+          <view class="right">
+          <text>开始测试</text>
+          </view>
+        </view>
+        <!-- </view>
+        <view class="right">
+          <text>蓝牙连接</text>
+        </view> -->
+      </view>
+      <view class="result-sheet-link" bindtap="addResultEquipment">添加新的 InBody 设备</view>
+    </view>
+  </view>
+
+  <view class="health-section blood-section">
+    <view class="health-section-title">血压记录</view>
+    <view class="health-card" bindtap="bindHealthReportBP">
+      <image class="health-icon" src="/images/home_blood_drop.svg" mode="aspectFit" />
+      <text class="health-card-name">血压</text>
+      <view class="health-stat"><text class="health-stat-label">最高</text><text class="health-stat-value">{{SPHYG1 > 0 ? SPHYG1 : '--'}}</text><text class="health-stat-unit">mmHg</text></view>
+      <text class="health-divider">/</text>
+      <view class="health-stat"><text class="health-stat-label">最低</text><text class="health-stat-value">{{SPHYG2 > 0 ? SPHYG2 : '--'}}</text><text class="health-stat-unit">mmHg</text></view>
+      <view class="health-stat"><text class="health-stat-label">脉搏率</text><view class="pulse-reading"><text class="pulse-heart">♥</text><text class="health-stat-value">{{SPHYG3 > 0 ? SPHYG3 : '--'}}</text></view><text class="health-stat-unit">BPM</text></view>
+    </view>
+  </view>
+  <view class="health-section">
+    <view class="health-section-title">握力</view>
+    <view class="health-card">
+      <image class="health-icon" src="/images/home_grip.svg" mode="aspectFit" />
+      <text class="health-card-name">握力</text>
+      <view class="health-stat grip-stat"><text class="health-stat-label">绝对</text><view><text class="health-stat-value">--</text><text class="health-stat-unit"> kg</text></view></view>
+      <text class="health-divider">/</text>
+      <view class="health-stat grip-stat"><text class="health-stat-label">相对</text><view><text class="health-stat-value">--</text><text class="health-stat-unit"> %</text></view></view>
+    </view>
+  </view>
+  <view class="health-section">
+    <view class="health-title-row"><view class="health-section-title">今天</view><view class="health-goal-link" bindtap="openHealthGoal">设定目标 ›</view></view>
+    <view class="health-card today-card">
+      <image class="health-icon" src="/images/home_activity.svg" mode="aspectFit" />
+      <view class="today-content"><view class="today-summary"><text class="health-card-name">运动记录</text><view><text class="health-stat-value">--</text><text class="health-stat-unit">/-- kcal</text></view></view><view class="activity-track"></view></view>
+    </view>
+    <view class="health-empty-note" wx:if="{{healthGoalLabel}}">当前目标：{{healthGoalLabel}}</view>
+  </view>
+  <view class="health-section goal-section">
+    <view class="health-section-title">您的目标是什么？</view>
+    <view class="goal-choice {{healthGoal == item.key ? 'goal-selected' : ''}}" wx:for="{{healthGoals}}" wx:key="key" data-key="{{item.key}}" bindtap="selectHealthGoal">
+      <view class="goal-option-symbol goal-option-{{item.key}}"><image class="goal-option-icon" src="{{item.key == 'fat' ? '/images/home_activity.svg' : '/images/home_goal_leaf.svg'}}" mode="aspectFit" /></view><text>{{item.label}}</text>
+    </view>
+    <button class="health-goal-button" bindtap="openHealthGoal">{{healthGoalLabel ? '更改目标' : '请设定目标，打造您想要的体成分'}}</button>
+  </view>
+  <view class="dashboard-bottom-info">
+    <button class="dashboard-edit-button" bindtap="openDisplaySettings"><image class="dashboard-edit-icon" src="/images/history_settings.svg" mode="aspectFit" /><text>编辑Dashboard</text></button>
+    <text class="dashboard-bottom-description">设置界面上显示的项目，顺序可以更改。
+请创建一个自己的界面。</text>
+    <image class="dashboard-bottom-logo" src="/images/inbody.png" mode="aspectFit" />
+  </view>
+
+  <dialog wx:if="{{status}}" title="" status="{{status}}" bind:cancel='handlecancel' bind:confirm="bindEquip" content='还没有绑定设备，请先设置产品' >
+  </dialog>
+  <!--<view class='dashboard_float' bindtap='bindInBodyDialTest'> 
+  <image class='imgDialLogo' src='/images/btnInbodydialWhite.png'></image>
+</view>-->
+
+</view>
+
+<!-- <view class="footer">
+  <view class="btnArea">
+    <view id="healthReport" class="footerBtn on">
+      <image class="footerIcon" src='/images/{{BtnIcon_HealthReport}}.png'></image>
+      <text class="footerText">健身报告</text>
+    </view>
+    <view class="footerBtn" bindtap="bindHealthReportInBody">
+      <image class="footerIcon" src='/images/{{BtnIcon_ViewMore}}.png'></image>
+      <text class="footerText">查看更多</text>
+    </view>
+    <view id="me" class="footerBtn" bindtap="moveToMenu">
+      <image class="footerIcon" src='/images/{{BtnIcon_Me}}.png'></image>
+      <text class="footerText">我</text>
+    </view>
+  </view>
+</view> -->
+
+<measure-modal />
+

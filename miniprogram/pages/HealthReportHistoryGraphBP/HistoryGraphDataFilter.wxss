@@ -1,0 +1,41 @@
+.icon{width:48rpx;height:48rpx;vertical-align:middle;padding:16rpx;}
+
+.titleBar{position:fixed;background-color:white; height:88rpx; width:100%; vertical-align: middle; text-align: center;z-index:100;
+border-bottom:solid 1px #eeeeee;border-top:solid 1px #eeeeee;}
+.titleBar .title{font-size:32rpx; line-height:80rpx; vertical-align: middle; font-weight:bold;}
+.titleBar .btnComplete{border:0rpx;font-size:32rpx;float:right;font-weight:bold;}
+
+.filterArea{height:88rpx;}
+.filterArea .filter{height:88rpx;}
+
+.filterArea .filter text{font-size:28rpx;line-height:84rpx;}
+.filterArea .filter .left{float:left;padding-left:32rpx;}
+.filterArea .filter .right{float:right;padding-left:32rpx;}
+
+
+.dataList .listBarArea{background-color:#eeeeee;padding:20rpx 32rpx 20rpx 32rpx;height:40rpx;}
+.dataList .listBarArea .left{float:left;line-height:40rpx;}
+.dataList .listBarArea .right{float:right;}
+.dataList .listBarArea .txt{font-size:24rpx;color:#757575;font-weight:bold;}
+.dataList .listBarArea .btn{font-size:20rpx;border:0rpx;line-height:40rpx;float:left;padding:0rpx 20rpx 0rpx 20rpx;}
+.dataList .listBarArea .btn.clear{color:#2196f3;border:solid 2rpx #2196f3;margin-right:16rpx;}
+.dataList .listBarArea .btn.all{background-color:#2196f3;color:#ffffff;}
+
+.dataList .listCountArea {padding:20rpx 32rpx 20rpx 32rpx;text-align:right;}
+.dataList .listCountArea .listcount {color:#f44336;font-size:24rpx;}
+
+.dataList .list {clear:both;}
+.dataList .list .listItem{height:120rpx;}
+.dataList .list .listItem .dataLeft{float:left;padding:32rpx;}
+
+.dataList .list .listItem .dataLeft checkbox .wx-checkbox-input{border-radius:50%;color:white;}
+.dataList .list .listItem .dataLeft checkbox .wx-checkbox-input-checked{background-color:#333;color:white;}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {width: 28rpx;height: 28rpx;line-height: 28rpx;text-align: center;font-size: 22rpx;color: #fff;background: transparent;
+transform: translate(-50%, -50%) scale(1);-webkit-transform: translate(-50%, -50%) scale(1);}
+
+.dataList .list .listItem .dataMid{float:left;padding:28rpx 28rpx 28rpx 0px;line-height:66rpx;}
+.dataList .list .listItem .dataMid .top{font-size:28rpx;}
+.dataList .list .listItem .dataMid .bottom{font-size:20rpx;color:#9e9e9e;}
+.dataList .list .listItem .dataRight{float:right;width:220rpx;padding:14px;text-align:right;line-height:66rpx;}
+.dataList .list .listItem .dataRight .top{font-size:28rpx;}
+.dataList .list .listItem .dataRight .bottom{font-size:20rpx;}

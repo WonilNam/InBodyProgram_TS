@@ -1,0 +1,38 @@
+<wxs src="./Resources.wxs" module="res"></wxs>
+
+<view class="metric-page {{dashboardMode ? 'dashboard-mode' : ''}}">
+  <view class="status-bar" style="height: {{statusBarHeight}}px"></view>
+  <view class="metric-nav" bindtap="goBack"><view class="back-arrow"></view></view>
+
+  <view class="metric-intro">{{dashboardMode ? '可以更改体成分检测摘要中显示的项目和顺序' : '可以更改变化图表的项目和顺序。'}}</view>
+  <view class="metric-description" wx:if="{{dashboardMode}}">请选择三项数据。若要替换，请先取消已有项目，再选择新项目。拖动右侧图标调整顺序。</view>
+  <view class="metric-count">可见项目 <text>{{selectedCount}}</text></view>
+
+  <view class="metric-list">
+    <view wx:for="{{visibleItems}}" wx:key="key" class="metric-row {{draggingKey == item.key ? 'dragging' : ''}}">
+      <view class="metric-choice" data-key="{{item.key}}" bindtap="toggleMetric">
+        <view class="metric-check {{item.selected ? 'checked' : ''}}"><image wx:if="{{item.selected}}" class="metric-check-mark" src="/images/history_metric_check.svg" mode="aspectFit"></image></view>
+        <view class="metric-name">{{res.getString('Item_' + item.key, L) || item.key}}</view>
+      </view>
+      <view class="drag-handle" data-key="{{item.key}}" catchtouchstart="onDragStart"
+        catchtouchmove="onDragMove" catchtouchend="onDragEnd" catchtouchcancel="onDragEnd" catchtap="onDragEnd">
+        <view></view><view></view><view></view>
+      </view>
+    </view>
+    <view class="metric-empty" wx:if="{{items.length == 0}}">暂无可显示项目</view>
+  </view>
+
+  <view class="metric-hidden-section" wx:if="{{hiddenItems.length > 0}}">
+    <view class="metric-count">隐藏项目 <text>{{hiddenItems.length}}</text></view>
+    <view class="metric-list">
+      <view wx:for="{{hiddenItems}}" wx:key="key" class="metric-row">
+        <view class="metric-choice" data-key="{{item.key}}" bindtap="toggleMetric">
+          <view class="metric-check"></view>
+          <view class="metric-name">{{res.getString('Item_' + item.key, L) || item.key}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="metric-action"><button bindtap="saveSettings">更改</button></view>
+</view>

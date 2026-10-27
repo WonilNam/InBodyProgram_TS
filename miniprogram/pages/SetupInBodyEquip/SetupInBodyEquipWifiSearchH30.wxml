@@ -1,0 +1,38 @@
+<view class="wrap">
+    <view class="header" style="{{connected?'height:16vh':'height:8vh'}}">
+        <view class="s">
+            <view class="title">WiFi</view>
+            <switch class="wifiSwitch" bindchange="switchChanged" checked="{{switchOn}}" disabled="{{viewType == 'searching'}}"></switch>
+        </view>
+        <view class="wfInfo" wx:if="{{connected}}">        
+            <view class="ssid">SSID: {{SSID}}</view>
+        </view>
+
+    </view>
+    <view class="itemArea" style="{{connected?'height:64vh':'height:72vh'}}" wx:if="{{switchOn}}">
+        <view class="textArea" wx:if="{{viewType != 'searching' && viewType != 'connected' && viewType != ''}}">
+            <view class="txt">请选择设备要连接的设备</view>
+        </view>
+        <view class="textSearching" wx:if="{{viewType == 'searching'}}">
+            <view class="txt">加载连接设备的Wifi</view>
+            <view class="txt">请稍等</view>
+            <view class="txt">Dial屏幕关闭时也可进行搜索。</view>
+        </view>
+
+        <progress percent="{{progress}}" wx:if="{{viewType == 'searching'}}" stroke-width="20rpx" activeColor="rgb(54, 62, 81)"></progress>
+
+        <view class="item" wx:for="{{wifiInfo}}" wx:key="MacAddr" wx:if="{{viewType == 'searched'}}" bindtap="select" data-id="{{item.SSID}}" data-security="{{item.Security}}">
+            <view class="title">{{item.SSID}}</view>
+            <view class='img'>
+                <image style="visibility: {{item.Security == 0 ? 'hidden' : 'visible'}}" src="/images/ic_filled_lock_24.png"></image>
+                <image wx:if="{{item.Rssi >= -65}}" src="/images/ic_filled_wi_fi_3_24.png"></image>
+                <image wx:elif="{{item.Rssi >= -88}}" src="/images/ic_filled_wi_fi_2_24.png"></image>
+                <image wx:else src="/images/ic_filled_wi_fi_1_24.png"></image>
+            </view>
+        </view>
+
+    </view>
+    <view class="foot" wx:if="{{switchOn && viewType != 'searching'}}">
+        <button class="btnSet" bindtap="search">{{btnSelect}}</button>
+    </view>
+</view>

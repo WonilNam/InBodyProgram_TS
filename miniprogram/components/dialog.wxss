@@ -1,0 +1,117 @@
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: maskFadeIn 0.2s ease-out;
+}
+
+@keyframes maskFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dialog {
+  width: 82vw;
+  max-width: 600rpx;
+  min-width: 520rpx;
+  max-height: 80vh;
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  animation: dialogPopIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dialogPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dialog-header {
+  padding: 40rpx 40rpx 12rpx;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.5rpx;
+  line-height: 1.4;
+}
+
+.dialog-body {
+  text-align: center;
+  padding: 12rpx 40rpx 36rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #4b5563;
+  box-sizing: border-box;
+  max-height: 60vh;
+  min-height: 0;
+}
+
+.dialog-body.no-title {
+  padding-top: 44rpx;
+  font-size: 30rpx;
+  color: #1f2937;
+}
+
+.content {
+  color: inherit;
+  word-break: break-all;
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  padding: 0 32rpx 36rpx;
+  gap: 20rpx;
+}
+
+.dialog-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 29rpx;
+  font-weight: 500;
+  border-radius: 18rpx;
+  box-sizing: border-box;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.dialog-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.dialog-btn-cancel {
+  background: #f3f4f6;
+  color: #4b5563;
+  border: 1rpx solid #e5e7eb;
+}
+
+.dialog-btn-confirm {
+  background-color: rgb(181, 9, 55);
+  color: #ffffff;
+}

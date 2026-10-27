@@ -1,0 +1,2 @@
+.noDataBody{background-color:#f2f2f2; height:100%;}
+.noDataText{height:100%; font-size:32rpx;font-weight: bold; display:block;text-align:center;line-height:900rpx;}

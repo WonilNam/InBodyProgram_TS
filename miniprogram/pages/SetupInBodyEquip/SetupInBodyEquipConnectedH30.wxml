@@ -1,0 +1,16 @@
+<view class="wrap">
+  <view class="header">
+    <view class="title">InBodyDial {{equip}}</view>
+ <view class="text">已连接</view>
+  </view>
+ 
+  <view class="itemArea">
+      <view class="imageArea">
+        <image src="{{imgSrc}}"></image>
+    </view>
+
+  </view>
+ <view class="foot">
+    <button class="btnSet" bindtap="confirm" >观看教程</button>
+  </view>
+</view>

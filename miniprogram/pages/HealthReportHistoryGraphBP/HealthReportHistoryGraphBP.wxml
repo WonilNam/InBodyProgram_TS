@@ -1,0 +1,37 @@
+<wxs src="./Resources.wxs" module="res"></wxs>
+<view class="container">
+  <view class="header">
+    <view class="mainnoti" wx:if="{{!NotiViewHide}}">
+      <text class="mainlink" bindtap="clickLink">InBody APP下载</text>
+      <image class="mainclose" bindtap="clickLink" src="/images/btnMeal.png"></image>
+    </view> 
+  </view>
+  <view class="body">
+  <nodata-compo Type="BP" wx:if="{{NoData == 'NoData'}}"/>
+  <view  wx:if="{{NoData == ''}}">
+    <view class="dataFilterArea" style="z-index:50;" bindtap="setFilterChange">  
+      <image  src="/images/filterIcon.png" class="icon" mode="center" style='float:left;padding:8px 8px 8px 10px;'></image>
+      <view class="filterText" style="float:right;">
+      <!-- <image src="/images/newIcon.png" class="icon" mode="center" style='display:inline-block'></image> -->
+        <text class="text">{{dateRangeText}}</text>
+        <image src="/images/expandMore.png" class="icon" mode="center" style='display:inline-block'></image>
+      </view>
+    </view>
+    <view style='height:8px;background-color:#f5f5f5;'></view>
+  </view>
+    
+    <view class="graphArea"  wx:if="{{NoData == ''}}">
+      <view class="btnR_TArea">
+        <button id="btnR" class="{{btnRClass}}" bindtap="setBind" style="margin-right:8rpx;">{{res.getString('Txt_Recent', L)}}</button>
+        <button id="btnT" class="{{btnTClass}}" bindtap="setBind">{{res.getString('Txt_Total', L)}}</button>
+      </view>
+      <view class="historyArea">
+        <view class="historyArea-item" wx:for="{{historyItem}}" wx:key="key" id="{{item.key}}">
+          <text class="title">{{res.getString('Item_' + item.key, L)}}<text class="unit" wx:if="{{item.unit != ''}}">({{item.unit}})</text>
+          </text>
+          <canvas type="2d" class="graph" id="{{item.canvasID}}"></canvas>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

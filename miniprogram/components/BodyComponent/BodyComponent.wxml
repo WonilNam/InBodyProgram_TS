@@ -1,0 +1,12 @@
+<!--components/BodyComponent/BodyComponent.wxml-->
+<view class="container bodyComponent">
+    <view class="img">
+        <image class="bodyImage" src="{{componentImg}}" mode="widthFix"></image>
+    </view>
+    <view class="canvaBody">
+        <canvas type="2d" id="bargraph_body" style="width:100%;height: {{canvaHeight}}px"></canvas>
+    </view>
+    <view class="canvaBody">
+        <canvas type="2d" id="bargraph_circle" style="width:100%;height: {{canvaHeight}}px"></canvas>
+    </view>
+</view>

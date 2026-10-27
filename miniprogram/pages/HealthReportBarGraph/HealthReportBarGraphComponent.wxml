@@ -1,0 +1,634 @@
+<view wx:if="{{isLoading}}" class="result-loading"><view class="result-loading-spinner"></view><text>加载中…</text></view>
+<view style='height:100%; background-color:#eee;' wx:elif="{{IsExistsData}}">
+    <view class='header'>
+        <view class='selectdate'>
+            <button class="date-step" style="background-color: #fff;" disabled='{{InBodyData.IsNotPrev}}' bindtap="bindPrevInBodyData"><image class="date-step-icon" src="{{InBodyData.PreSrc}}" /></button>
+            <button class="date-label" bindtap="bindInBodyDataSelect">{{InBodyData.DATETIMES_TXT}}</button>
+            <button class="date-step" style="background-color: #fff;" disabled='{{InBodyData.IsNotNext}}' bindtap="bindNextInBodyData"><image class="date-step-icon" src="{{InBodyData.NextSrc}}" /></button>
+        </view>
+        <button class="date-delete" bindtap="confirmDeleteRecord"><image class="date-delete-icon" src="/images/report_delete.svg" /></button>
+    </view>
+    <view wx:if="{{InBodyData && InBodyData.InBodyAge && InBodyData.InBodyAge.VALUE && InBodyData.InBodyAge.VALUE != 0 && (!InBodyData.InBodyAge.Style || InBodyData.InBodyAge.Style.indexOf('none') < 0)}}" style="{{InBodyData.InBodyAge.Style}}" class="inbody-age" bind:tap="showDesc" data-tag="InBodyAge">
+        <view class="change-age">
+            <view class="title">InBody 年龄</view>
+            <view class="change">{{ChangeRange.InBodyAge>0?"+"+ChangeRange.InBodyAge:ChangeRange.InBodyAge}}</view>
+        </view>
+        <view class="age"><text class="summary-primary">{{InBodyData.InBodyAge.VALUE}}</text><text class="summary-unit">岁</text><text class="summary-age-reference">/{{InBodyData.AGE}}岁</text></view>
+    </view>
+    <view wx:if="{{InBodyData.FS.VALUE && InBodyData.FS.VALUE != 0 && (!InBodyData.FS.Style || InBodyData.FS.Style.indexOf('none') < 0)}}" style="{{InBodyData.FS.Style}}" class="inbody-score" bind:tap="showDesc" data-tag="SCORE">
+        <view class="change-score">
+            <view class="title">InBody 分数</view>
+            <view class="change">{{ChangeRange.SCORE>0?"+"+ChangeRange.SCORE:ChangeRange.SCORE}}</view>
+        </view>
+        <view class="score"><text class="summary-primary">{{InBodyData.FS.VALUE}}</text><text class="summary-unit">分</text></view>
+    </view>
+    <view style="background-color: white; z-index: 20;">
+        <desc-dialog title="{{descTitle}}" status="{{descStatus}}" use-native-overlay="{{slotWrapper != 'age'}}" bind:cancel='handlecancel' content='{{descContent}}'>
+            <view class="ageContent" wx:if="{{slotWrapper == 'age'}}">
+                <view style="width: 100%; text-align: center;">
+                    <canvas type="2d" id="bargraph_InBodyAge" class="inBodyAgeCanvas" style="width: 100%; height: 160px;"></canvas>
+                </view>
+                <view class="age-question">
+                    <view class="question-wrapper" wx:for="{{questions}}" wx:key="id">
+                        <view class="questionStyle" bindtap="toggleAnswer" data-index="{{index}}">
+                            {{item.question}}
+                            <image src="{{item.showAnswer ? '/images/icon_up.png' : '/images/expandMore.png'}}" style="width: 16px; height: 16px; margin-left: 10px;" />
+                        </view>
+                        <view style="{{item.showAnswer ? 'height: 1px; background:#ccc; margin: 10px 0;' : ''}}"></view>
+                        <view class="answerStyle" style="{{item.showAnswer ? 'display: block;' : ''}}">
+                            {{item.answer}}
+                        </view>
+                        <!-- <view wx:if="{{!index == questions.length - 1}}" style="height: 1px; background: #eee; margin: 15px 0;"></view> -->
+                    </view>
+                </view>
+            </view>
+        </desc-dialog>
+    </view>
+    <view class="detail-compo segment-section" wx:if="{{InBodyData && (!InBodyData.SEG_SLM.Style || !InBodyData.SEG_BFM.Style || !InBodyData.SEG_ECW_TBW.Style)}}">
+        <view class='datagroup segment-heading'>
+            <span class="vam fs17 bold titletxt">节段分析</span>
+            <view class="detail-share-button" bindtap="openReportShare"><image class="detail-share-icon" src="../../images/share_report_blue.svg" mode="aspectFit" /></view>
+        </view>
+        <view class='inbodydataview'>
+            <view class='segmentview'>
+                <view style="{{InBodyData.SEG_SLM.Style}}" class='segmentItem {{segmentType=="smm"?"active":""}}' bindtap="changeSegmentType" data-type="smm">
+                    <span class="segment-tab-label">肌肉量</span>
+                </view>
+                <view style="{{InBodyData.SEG_BFM.Style}}" class='segmentItem {{segmentType=="bfm"?"active":""}}' bindtap="changeSegmentType" data-type="bfm">
+                    <span class="segment-tab-label">体脂肪</span>
+                </view>
+                <view style="{{InBodyData.SEG_ECW_TBW.Style}}" class='segmentItem {{segmentType=="wed"?"active":""}}' bindtap="changeSegmentType" data-type="wed">
+                    <span class="segment-tab-label">细胞外水分比率</span>
+                </view>
+            </view>
+            <view class="segmentGraph">
+                <view class="chart">
+                    <scroll-view scroll-y>
+                        <view id="radarCanva" class="radar" style="width: 100%; height: 100%; text-align: center; ">
+                            <view>
+                                <canvas type="2d" id="bargraph_SEGMENT" class="radarCanvas" hidden="{{hideReportCanvases}}"></canvas>
+                            </view>
+                            <view class="img">
+                                <image class="radarImage" src="/images/icon_body_gray.png" mode="widthFix"></image>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </view>
+                <view class="analysis">
+                    <!-- segmentType=="smm"?InBodyData.SEG_SLM.DATA:segmentType=="bfm"?InBodyData.SEG_BFM.DATA:InBodyData.SEG_ECW_TBW.DATA -->
+                    <view wx:for='{{AnalysisData}}' wx:key="TYPE">
+                        <view class="part">
+                            <view class="firstLine">{{item.NAME}}</view>
+                            <view class="secondLine">
+                                <view class="weight">
+                                    <view class="no">{{item.VALUE}}</view>
+                                    <view class="param">{{item.STYLE}}</view>
+                                </view>
+                                <view class="change">{{item.CHANGE>0?"+"+item.CHANGE:item.CHANGE}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--<swiper style='height:65%;' bindanimationfinish="bindSwiperChangeView" duration="" indicator-dots="true" circular="true" skip-hidden-item-layout="true" current="{{CurruntSwiper}}">
+<block wx:if="{{PageView.MFA}}">
+<swiper-item>-->
+    <view class="detail-compo" wx:if="{{InBodyData && (!InBodyData.WT.Style || !InBodyData.SMM.Style || !InBodyData.BFM.Style)}}">
+        <view class='datagroup segment-heading' wx:if="{{InBodyData.SEG_SLM.Style && InBodyData.SEG_BFM.Style && InBodyData.SEG_ECW_TBW.Style}}">
+            <span class="vam fs17 bold titletxt">肌肉脂肪分析</span>
+            <view class="detail-share-button" bindtap="openReportShare"><image class="detail-share-icon" src="../../images/share_report_blue.svg" mode="aspectFit" /></view>
+            <!--<view class='btnInterpretaion' id="MFA" bindtap='bindShowInterpretaion' wx:if="{{PageView.MFA}}">说明</view>-->
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.WT.Style}}" bind:tap="showDesc" data-tag="WT">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">体重</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.WT.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.WT.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_WT" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.WT>0?"+"+ChangeRange.WT:ChangeRange.WT}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.SMM.Style}}" bind:tap="showDesc" data-tag="SMM">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">骨骼肌量</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.SMM.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.SMM.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_SMM" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.SMM>0?"+"+ChangeRange.SMM:ChangeRange.SMM}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.BFM.Style}}" bind:tap="showDesc" data-tag="BFM">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">体脂肪量</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.BFM.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.BFM.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_BFM" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.BFM>0?"+"+ChangeRange.BFM:ChangeRange.BFM}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' wx:if="{{InBodyData && (!InBodyData.WT.Style || !InBodyData.SMM.Style || !InBodyData.BFM.Style)}}" bind:tap="showDesc" data-tag="CID">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">CID</span>
+            </view>
+            <view class='data_title' wx:if="{{CIDData && CIDData.Title}}">
+                <span class="vam fs12 bold">{{CIDData.Title}}</span>
+            </view>
+            <view class="cid" style="position: relative;">
+                <image class="bg-img" mode="heightFix" src="{{CIDImage}}" wx:if="{{CIDImage}}"></image>
+                <view class="clearfloat" style="{{InBodyData.WT.Style}}">
+                    <div class="leftdiv">
+                        <span class="vam fs12 ffi">体重</span>
+                    </div>
+                    <div class="rightdiv">
+                        <canvas type="2d" id="bargraph_WT99" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+                    </div>
+                </view>
+                <view class="clearfloat" style="{{InBodyData.SMM.Style}}">
+                    <div class="leftdiv">
+                        <span class="vam fs12 ffi">骨骼肌量</span>
+                    </div>
+                    <div class="rightdiv">
+                        <canvas type="2d" id="bargraph_SMM99" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+                    </div>
+                </view>
+                <view class="clearfloat" style="{{InBodyData.BFM.Style}}">
+                    <div class="leftdiv">
+                        <span class="vam fs12 ffi">体脂肪量</span>
+                    </div>
+                    <div class="rightdiv">
+                        <canvas type="2d" id="bargraph_BFM99" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+                    </div>
+                </view>
+            </view>
+            <view class="cid-explanation" wx:if="{{CIDData && CIDData.Title}}">
+                <text>{{CIDData.Explain || CIDData.Description || 'CID 结合体重、骨骼肌量和体脂肪量展示体型分类。'}}</text>
+            </view>
+        </view>
+        <!-- <view class='interpretation' style='{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">{{Explanation.Explanation_MFA}} </span>
+        </view> -->
+    </view>
+    <!--<swiper style='height:65%;' bindanimationfinish="bindSwiperChangeView" duration="" indicator-dots="true" circular="true" skip-hidden-item-layout="true" current="{{CurruntSwiper}}">
+<block wx:if="{{PageView.MFA}}">
+<swiper-item>-->
+    <!--</swiper-item>
+</block>
+<block wx:if="{{PageView.OA}}">
+<swiper-item>-->
+    <view class="detail-compo" wx:if="{{!InBodyData.BMI.Style || !InBodyData.PBF.Style}}">
+        <view class='datagroup'>
+            <span class="vam fs17 bold titletxt">肥胖分析</span>
+            <!--<view class='btnInterpretaion' id="OA" bindtap='bindShowInterpretaion' wx:if="{{PageView.OA}}">说明</view>-->
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.BMI.Style}}" bind:tap="showDesc" data-tag="BMI">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">BMI</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.BMI.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.BMI.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_BMI" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.BMI>0?"+"+ChangeRange.BMI:ChangeRange.BMI}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.PBF.Style}}" bind:tap="showDesc" data-tag="PBF">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">体脂率</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.PBF.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.PBF.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_PBF" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.PBF>0?"+"+ChangeRange.PBF:ChangeRange.PBF}}</span></div>
+            </div>
+        </view>
+        <!-- <view class='interpretation' style='{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">{{Explanation.Explanation_OA}}</span>
+        </view> -->
+    </view>
+    <!--</swiper-item>
+</block>
+<block wx:if="{{PageView.SLA}}">
+<swiper-item>-->
+    <view class="detail-compo" style="{{InBodyData.INLL.Style}}">
+        <view class='datagroup'>
+            <span class="vam fs17 bold titletxt">下肢肌肉分析</span>
+            <!--<view class='btnInterpretaion' id="SLA" bindtap='bindShowInterpretaion' wx:if="{{PageView.SLA}}">说明</view>-->
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.INLL.Style}}" bind:tap="showDesc" data-tag="SLA">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">下肢肌肉量</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.INLL.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.INLL.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_INLL" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.INLL>0?"+"+ChangeRange.INLL:ChangeRange.INLL}}</span></div>
+            </div>
+        </view>
+        <!-- <view class='interpretation' style='{{InBodyData.INLL.Style}};{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">{{Explanation.Explanation_SLA}}</span>
+        </view> -->
+    </view>
+    <!--</swiper-item>
+</block>
+<block wx:if="{{PageView.ETA}}">
+<swiper-item>-->
+    <!-- <view class="detail-compo">
+        <view class='datagroup' style='{{InBodyData.WED.Style}}'>
+            <span class="vam fs17 bold titletxt">细胞外水分比率分析</span>
+        </view>
+        <view class='inbodydataview clearfloat' style='{{InBodyData.WED.Style}}' bind:tap="showDesc" data-tag="ETA">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">细胞外水分比率</span>
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.WED.VALUE}}</span>
+                <span class="vam unit"></span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_WED" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+        </view>
+        <view class='interpretation' style='{{InBodyData.WED.Style}}{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">{{Explanation.Explanation_ETA}}</span>
+        </view>
+    </view> -->
+    <!--</swiper-item>
+</block>
+<block wx:if="{{PageView.VFA}}">
+<swiper-item>-->
+    <view class="detail-compo" wx:if="{{!InBodyData.WHR.Style || !InBodyData.VFA.Style || !InBodyData.VFALevel.Style}}">
+        <view class='datagroup' wx:if="{{!InBodyData.WHR.Style || !InBodyData.VFA.Style || !InBodyData.VFALevel.Style}}">
+            <span class="vam fs17 bold titletxt">腹部肥胖分析</span>
+            <!--<view class='btnInterpretaion' id="VFA" bindtap='bindShowInterpretaion' wx:if="{{PageView.VFA}}">说明</view>-->
+        </view>
+
+        <view class='inbodydataview clearfloat' style="{{InBodyData.WHR.Style}}" bind:tap="showDesc" data-tag="WHR">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">腰臀比</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.WHR.VALUE}}</span>
+                <span class="vam"></span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_WHR" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.WHR>0?"+"+ChangeRange.WHR:ChangeRange.WHR}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.VFA.Style}}" bind:tap="showDesc" data-tag="VFA">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">内脏脂肪面积</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.VFA.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.VFA.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_VFA" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.VFA>0?"+"+ChangeRange.VFA:ChangeRange.VFA}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.VFALevel.Style}}" bind:tap="showDesc" data-tag="VFALevel">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">内脏脂肪等级</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv" style="width: 20%;">
+                <span class="vam fs24 bold">{{InBodyData.VFALevel.VALUE}}</span>
+                <span class="vam">{{InBodyData.VFALevel.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_VFALevel" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.VFALevel>0?"+"+ChangeRange.VFALevel:ChangeRange.VFALevel}}</span></div>
+            </div>
+        </view>
+        <!-- <view class='interpretation' style='{{InBodyData.VFALevel.Style}}{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">{{Explanation.Explanation_VFA}}</span>
+        </view> -->
+    </view>
+
+    <!-- 体水分 -->
+    <view class="detail-compo" wx:if="{{InBodyData && (!InBodyData.TBW.Style || !InBodyData.ICW.Style || !InBodyData.ECW.Style || !InBodyData.WED.Style)}}">
+        <view class='datagroup' style="{{InBodyData.TBW.Style}}">
+            <span class="vam fs17 bold titletxt">体水分分析</span>
+            <!--<view class='btnInterpretaion' id="VFA" bindtap='bindShowInterpretaion' wx:if="{{PageView.VFA}}">说明</view>-->
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.TBW.Style}}" bind:tap="showDesc" data-tag="TBW">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">体水分</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.TBW.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.TBW.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_TBW" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.TBW>0?"+"+ChangeRange.TBW:ChangeRange.TBW}}</span></div>
+            </div>
+        </view>
+
+        <view class='inbodydataview clearfloat' style="{{InBodyData.ICW.Style}}" bind:tap="showDesc" data-tag="ICW">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">细胞内水分</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.ICW.VALUE}}</span>
+                <span class="vam">{{InBodyData.ICW.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_ICW" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.ICW>0?"+"+ChangeRange.ICW:ChangeRange.ICW}}</span></div>
+            </div>
+        </view>
+
+        <view class='inbodydataview clearfloat' style="{{InBodyData.ECW.Style}}" bind:tap="showDesc" data-tag="ECW">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">细胞外水分</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.ECW.VALUE}}</span>
+                <span class="vam">{{InBodyData.ECW.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_ECW" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.ECW>0?"+"+ChangeRange.ECW:ChangeRange.ECW}}</span></div>
+            </div>
+        </view>
+
+        <view class='inbodydataview clearfloat' style="{{InBodyData.WED.Style}}" bind:tap="showDesc" data-tag="WED">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">细胞外水分比率</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv" style="width: 20%;">
+                <span class="vam fs24 bold">{{InBodyData.WED.VALUE}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_WED" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.WED>0?"+"+ChangeRange.WED:ChangeRange.WED}}</span></div>
+            </div>
+        </view>
+    </view>
+
+
+    <view class="detail-compo" wx:if="{{InBodyData && (!InBodyData.BMR.Style || (!InBodyData.BMI.Style && !InBodyData.PBF.Style))}}">
+        <view class='datagroup'>
+            <span class="vam fs17 bold titletxt">综合分析</span>
+            <!--<view class='btnInterpretaion' id="VFA" bindtap='bindShowInterpretaion' wx:if="{{PageView.VFA}}">说明</view>-->
+        </view>
+
+        <view class='inbodydataview clearfloat' style="{{InBodyData.BMR.Style}}" bind:tap="showDesc" data-tag="BMR">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">基础代谢率</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold" style="margin-right:4rpx;">{{InBodyData.BMR.VALUE}}</span>
+                <span class="unit">kcal</span>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.BMR>0?"+"+ChangeRange.BMR:ChangeRange.BMR}}</span></div>
+            </div>
+        </view>
+        <!-- <view class='interpretation' style='{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">基础代谢率是维持生命所需的最低能量。肌肉量增加时，所需的能量也增加，基础代谢率也随之增加，因此不易发胖。 </span>
+        </view> -->
+        <view class='inbodydataview clearfloat' style="{{InBodyData.INLL_LV.Style}}" bind:tap="showDesc" data-tag="INLL_LV" wx:if="{{InBodyData.INLL_LV.VALUE && InBodyData.INLL_LV.VALUE != 0}}">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">下肢肌肉量等级</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold" style="margin-right:4rpx;">{{InBodyData.INLL_LV.VALUE}}</span>
+                <span class="unit">lv</span>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.INLL_LV>0?"+"+ChangeRange.INLL_LV:ChangeRange.INLL_LV}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' wx:if="{{!InBodyData.IsManualInput && !InBodyData.BMI.Style && !InBodyData.PBF.Style}}">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">体型坐标</span>
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{BodyType}}</span>
+                <span class="vam unit"></span>
+            </div>
+            <!-- 도표를 canva로 그림 -->
+            <View class="bodyCoordinator">
+                <body-coordinate class="wrapper" dataBMI="{{InBodyData.BMI.VALUE || 0}}" dataPBF="{{InBodyData.PBF.VALUE || 0}}" dataSEX="{{InBodyData.SEX || ''}}" bindbodyTypeChild="handleBodyTypeChild" hidden="{{hideReportCanvases}}"></body-coordinate>
+            </View>
+        </view>
+        <!-- <view class='interpretation' style='{{InBodyData.WED.Style}}{{InterpretationVisible}}'>
+            <span class="vam contentTxtBlack">{{Explanation.Explanation_ETA}}</span>
+        </view> -->
+    </view>
+    <!--</swiper-item>
+</block>
+</swiper>-->
+    <view class="detail-compo" style="{{InBodyData.ETYPE2.Style}}" wx:if="{{InBodyData.ETYPE2.VALUE}}">
+        <view class='datagroup'>
+            <span class="vam fs17 bold titletxt">身体平衡评估</span>
+            <!--<view class='btnInterpretaion' id="ETA" bindtap='bindShowInterpretaion' wx:if="{{PageView.ETA}}">说明</view>-->
+        </view>
+        <view class='inbodydataview clearfloat' wx:if="{{InBodyData.EQUIP!='H30'}}">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">上部</span>
+            </view>
+            <div class="leftdiv balance">
+                <span class='bodyBalance {{BodyBalance.ARM=="0"?"green":BodyBalance.ARM=="1"?"orange":"red"}}'>{{BodyBalance.ARM=="0"?"均衡":BodyBalance.ARM=="1"?"轻度不均":"严重不均"}}</span>
+            </div>
+
+        </view>
+        <view class='inbodydataview clearfloat' wx:if="{{InBodyData.EQUIP!='H30'}}">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">下部</span>
+            </view>
+            <div class="leftdiv balance">
+                <span class='bodyBalance {{BodyBalance.LEG=="0"?"green":BodyBalance.LEG=="1"?"orange":"red"}}'>{{BodyBalance.LEG=="0"?"均衡":BodyBalance.LEG=="1"?"轻度不均":"严重不均"}}</span>
+            </div>
+
+        </view>
+        <view class='inbodydataview clearfloat'>
+            <view class='data_title'>
+                <span class="vam fs12 ffi">上下</span>
+            </view>
+            <div class="leftdiv balance">
+                <span class='bodyBalance {{BodyBalance.BODY=="0"?"green":BodyBalance.BODY=="1"?"orange":"red"}}'>{{BodyBalance.BODY=="0"?"均衡":BodyBalance.BODY=="1"?"轻度不均":"严重不均"}}</span>
+            </div>
+
+        </view>
+    </view>
+    <view class="detail-compo" wx:if="{{InBodyData && (!InBodyData.PROTEIN.Style || !InBodyData.MINERAL.Style || !InBodyData.BMC.Style || !InBodyData.BCM.Style || !InBodyData.BSMI.Style || !InBodyData.WBPA50.Style)}}">
+        <view class='datagroup'>
+            <span class="vam fs17 bold titletxt">人体成分分析</span>
+            <!--<view class='btnInterpretaion' id="MFA" bindtap='bindShowInterpretaion' wx:if="{{PageView.MFA}}">说明</view>-->
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.PROTEIN.Style}}" bind:tap="showDesc" data-tag="PROTEIN">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">蛋白质</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.PROTEIN.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.PROTEIN.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_PROTEIN" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.PROTEIN>0?"+"+ChangeRange.PROTEIN:ChangeRange.PROTEIN}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.MINERAL.Style}}" bind:tap="showDesc" data-tag="MINERAL">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">无机盐</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.MINERAL.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.MINERAL.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_MINERAL" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.MINERAL>0?"+"+ChangeRange.MINERAL:ChangeRange.MINERAL}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.BMC.Style}}" bind:tap="showDesc" data-tag="BMC">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">骨矿物质含量</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.BMC.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.BMC.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_BMC" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.BMC>0?"+"+ChangeRange.BMC:ChangeRange.BMC}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.BCM.Style}}" bind:tap="showDesc" data-tag="BCM">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">身体细胞量</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.BCM.VALUE}}</span>
+                <span class="vam unit">{{InBodyData.BCM.UNIT}}</span>
+            </div>
+            <div class="rightdiv">
+                <canvas type="2d" id="bargraph_BCM" class="vam bargraph" hidden="{{hideReportCanvases}}"></canvas>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.BCM>0?"+"+ChangeRange.BCM:ChangeRange.BCM}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.BSMI.Style}}" bind:tap="showDesc" data-tag="SMI">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">SMI骨骼肌指数</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.BSMI.VALUE}}</span>
+                <span class="vam unit">kg/m²</span>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.SMI>0?"+"+ChangeRange.SMI:ChangeRange.SMI}}</span></div>
+            </div>
+        </view>
+        <view class='inbodydataview clearfloat' style="{{InBodyData.WBPA50.Style}}" bind:tap="showDesc" data-tag="WBPA50">
+            <view class='data_title'>
+                <span class="vam fs12 ffi">全身相位角</span>
+                <image class="icon" src="/images/btnPaginationNextGray.png" />
+            </view>
+            <div class="leftdiv">
+                <span class="vam fs24 bold">{{InBodyData.WBPA50.VALUE}}</span>
+                <span class="vam unit">°</span>
+            </div>
+            <div class="change-wrapper">
+                <div class="dataChange"><span>{{ChangeRange.WBPA50>0?"+"+ChangeRange.WBPA50:ChangeRange.WBPA50}}</span></div>
+            </div>
+        </view>
+
+    </view>
+
+    <view class='footerButtons detail-compo'>
+        <!--<button plain='true' style='border:none;' class='btnAddMenu' bindtap='bindInterpretationHide'>결과 해설 숨김</button>-->
+        <button plain='true' style='border:none;' class='btnAddMenu' bindtap='bindInBodyItemHelp'>
+            <image class='imgHelp' src='/images/img_help.png'></image>
+            <text class='txtHelp'>InBody测试帮助</text>
+        </button>
+        <button plain='true' style='border:none;' class='btnAddMenu' hidden="{{ResultsSheetStatus != 'available'}}" bindtap='bindInBodyResultsSheet'>
+            <image class='imgHelp' src='/images/img_results.png'></image>
+            <text class='txtHelp'>InBody报告纸原图</text>
+        </button>
+    </view>
+</view>
+<view wx:if="{{!isLoading && !IsExistsData}}" style='position: absolute; width: 100%; height:100%; background-color:#F7F7F7;font-size:17px;text-align:center; '>
+    <view style="position: absolute; top: 40%; left: 23%; ">
+        InBody测试结果不存在 </view>
+</view>
